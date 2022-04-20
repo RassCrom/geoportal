@@ -1,17 +1,41 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Geoportal</title>
     
     <!-- NORMALIZE -->
     <link rel="stylesheet" href="./resources/styles/normalize.css">
 
+    <!-- MAPLIBRE -->
+    <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
+
+    <!-- LEAFLET -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
+
 </head>
 <body>
     <div id="map"></div>
+    <div class="time-control">Shadows
+        <input id="date" type="range" min="1" max="365" step="1"><label for="date"></label>
+        <input id="time" type="range" min="0" max="23" step="1"><label for="time"></label>
+    </div>
     
+
+    <!-- MAPLIBRE -->
+    <script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script>
+    
+    <!-- OSM BUILDINGS -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""></script>
+    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+
+    <!-- SCRIPT -->
+    <script src="./scripts/osm_bm.js"></script>
 </body>
 </html>
