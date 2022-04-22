@@ -1,13 +1,50 @@
-var map = new L.Map('map');
-map.setView([51.166667, 71.433333], 16, false);
+var towns = L.layerGroup();
+var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+var mbUrl = 'https://api.mapbox.com/styles/v1/rasscrom/ckmq71yrq0tut17qhr0l6b28x/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmFzc2Nyb20iLCJhIjoiY2wyNzlrcDY2MGk5cDNqcW5wZW9mZW5kciJ9.zdI6zJ4KbGx-V8mq1KoUCg';
 
-new L.TileLayer('https://api.mapbox.com/styles/v1/osmbuildings/cjt9gq35s09051fo7urho3m0f/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmFzc2Nyb20iLCJhIjoiY2wyNzlrcDY2MGk5cDNqcW5wZW9mZW5kciJ9.zdI6zJ4KbGx-V8mq1KoUCg', {
-  attribution: '© Map <a href="https://mapbox.com">Mapbox</a>',
-  maxZoom: 18,
-  maxNativeZoom: 20
-}).addTo(map);
+var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+var map = L.map('map', {
+	center: [51.166667, 71.433333],
+	zoom: 10,
+  minZoom: 3,
+  maxZoom: 17,
+	layers: [grayscale, towns]
+});
+
+var baseLayers = {
+	'Grayscale': grayscale, 
+};
+// var geoserver = L.tileLayer.wms("http://localhost:8080/geoserver/cite/wms", {
+//   layers: 'cite:teest_geo',
+//   format: 'image/png',
+//   transparent: true,
+//   attribution: "Lakes"
+// }).addTo(map);
+
+var overlays = {
+	'Cities': towns
+};
+
+var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
+// layerControl.addOverlay(geoserver, "geo");
+
+var marker_test = L.marker([51.166667, 71.433333]).addTo(map).bindPopup('test');
+
+var x = document.getElementById('xcoor')
+var y = document.getElementById('ycoor')
+
+function onMapClick(e) {
+    y.innerHTML = e.latlng.lng.toFixed(5)
+    x.innerHTML = e.latlng.lat.toFixed(5)
+}
+map.on('mousemove', onMapClick);
+
+// console.log(cities.features[0].properties.Population)
+// L.geoJSON(cities).addTo(map).bindPopup(`<b>${Object.getOwnPropertyNames(cities.features[0].properties)[0]}</b>` + ": " + cities.features[0].properties.City + '<br>' + Object.getOwnPropertyNames(cities.features[0].properties)[1] + ": " + cities.features[0].properties.Population);
 
 var osmb = new OSMBuildings(map).load();
+
+var myLayer = L.geoJSON().addTo(map);
 
 //********************************************************
 
