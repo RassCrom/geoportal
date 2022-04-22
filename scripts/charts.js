@@ -7,7 +7,7 @@ const chartNumOne = new Chart(ctx, {
         labels: ['2000', '2010', '2020', '2022'],
         datasets: [{
             label: 'Changing population',
-            data: [cities[nameCity][3], cities.akk[3], cities.ere[3], cities.der[3]],
+            data: [cities.ast[3], cities.akk[3], cities.ere[3], cities.der[3]],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

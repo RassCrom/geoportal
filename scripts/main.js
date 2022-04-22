@@ -144,5 +144,5 @@ const rndmFly = () => {
 
 rndm.addEventListener('click', rndmFly)
 
-// Copy Clipboard
-var clipboard = new ClipboardJS('#copy');
+// // Copy Clipboard
+// var clipboard = new ClipboardJS('#copy');
