@@ -24,7 +24,7 @@
 
 </head>
 <body>
-    
+
     <div id="left-sidebar" class="left-sidebar">
         <h3 class="sidebar-title">Cities</h3>
         <p class="sidebar-text">Zoom to one of the main cities of Akmolinsk region</p>
@@ -40,19 +40,30 @@
         <button role="button" type="button" id="stp" class="btn btn-stp">Степняк</button>
         <button role="button" type="button" id="shu" class="btn btn-shu">Щучинск</button>
     </div>
+    <div class="chart-window">
+        <canvas class="" id="chart-test"></canvas>
+        <button id="close-chart" class="btn btn-chart">Close chart</button>
+    </div>
     <div id="map">
         <div id='side-icon' class="side-icon">
             <button id="btn" class="side-icon__link">
                 <p class="fas fa-arrow-alt-circle-right"></p>
+            </button>
+            <button id="btn-fullscreen" class="side-icon__link">
+                <i id="full" class="fas fa-expand"></i>
+            </button>
+            <button id="btn-fullscreen" class="side-icon__link">
+                <i id="random" class="fas fa-question"></i>
             </button>
         </div>
     </div>
     <div class="time-control">Shadows
         <input id="date" type="range" min="1" max="365" step="1"><label for="date"></label>
         <input id="time" type="range" min="0" max="23" step="1"><label for="time"></label>
-        Coords: X <span id="xcoor"></span>; Y <span id="ycoor"></span>
-    </div>s
-
+        <span id="copy-coords">Coords: X <span id="xcoor"></span>, Y <span id="ycoor"></span></span>
+        <!-- <button data-clipboard-target="#xcoor" data-clipboard-target="#ycoor" class="btn-copy" id="copy">Copy</button>  -->
+    </div>
+</div>
     
     <script src="./scripts/data/data.js"></script>
     
@@ -75,10 +86,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
 
     <!-- SCRIPT -->
+    <script src="/node_modules/clipboard/dist/clipboard.min.js"></script>
+    <script src="./scripts/data/rndm_cities.js"></script>
     <script src="./scripts/data/city.js"></script>
     <script src="./scripts/osm_bm.js"></script>
     <!-- <script src="./scripts/maplibre.js"></script> -->
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/charts.js"></script>
     <script>
     </script>
 </body>
