@@ -1,19 +1,13 @@
 var towns = L.layerGroup();
-var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-var mbUrl = 'https://api.mapbox.com/styles/v1/rasscrom/ckmq71yrq0tut17qhr0l6b28x/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmFzc2Nyb20iLCJhIjoiY2wyNzlrcDY2MGk5cDNqcW5wZW9mZW5kciJ9.zdI6zJ4KbGx-V8mq1KoUCg';
 
-var grayscale = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
 var map = L.map('map', {
 	center: [51.166667, 71.433333],
 	zoom: 10,
   minZoom: 3,
   maxZoom: 17,
-	layers: [grayscale, towns]
+	layers: [mapbox, towns]
 });
 
-var baseLayers = {
-	'Grayscale': grayscale, 
-};
 // var geoserver = L.tileLayer.wms("http://localhost:8080/geoserver/cite/wms", {
 //   layers: 'cite:teest_geo',
 //   format: 'image/png',

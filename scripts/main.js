@@ -80,6 +80,9 @@ const zoomToCity = () => {
         case 'shu':
             nameCity = 'shu';
             break;
+        case 'ast':
+            nameCity = 'ast';
+            break;
         default:
             break;
     }
