@@ -13,11 +13,12 @@ var sideIcon = document.getElementById('side-icon');
     stp = document.getElementById('stp');
     shu = document.getElementById('shu');
     btnFullscreen = document.getElementById('btn-fullscreen');
-    rndm = document.getElementById('random')
+    rndm = document.getElementById('random');
+    home = document.getElementById('btn-home');
 
-const styleSideBar = window.getComputedStyle(leftBar)
+const styleSideBar = window.getComputedStyle(leftBar);
 const matrix = styleSideBar.transform || styleSideBar.webkitTransform || styleSideBar.mozTransform
-const matrixValues = matrix.match(/matrix.*\((.+)\)/)[1].split(', ')
+const matrixValues = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
 
 const animateSideBar = () => {
     let changeIcon = document.querySelector('.fas')
@@ -29,7 +30,7 @@ const animateSideBar = () => {
             easing: 'easeInOutElastic(1, .6)'
         })
         leftBar.classList.remove('close-sidebar');
-        changeIcon.classList.remove('fa-window-close');
+        changeIcon.classList.remove('fa-arrow-alt-circle-left');
         changeIcon.classList.add('fa-arrow-alt-circle-right');
     } else {
         anime({
@@ -40,7 +41,7 @@ const animateSideBar = () => {
         })
         leftBar.classList.add('close-sidebar');
         changeIcon.classList.remove('fa-arrow-alt-circle-right');
-        changeIcon.classList.add('fa-window-close');
+        changeIcon.classList.add('fa-arrow-alt-circle-left');
     }
 }
 
@@ -146,6 +147,14 @@ const rndmFly = () => {
 
 
 rndm.addEventListener('click', rndmFly)
+
+// FLY TO HOME POSITION 
+const flyToHome = () => {
+    map.flyTo([51.166667, 71.433333], 15)
+}
+
+home.addEventListener('click', flyToHome)
+
 
 // // Copy Clipboard
 // var clipboard = new ClipboardJS('#copy');
