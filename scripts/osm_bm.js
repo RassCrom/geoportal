@@ -28,7 +28,6 @@ var changeBasemaps = map.addControl(L.control.basemaps({
 // FEATURES ON MAP
 
 var marker_test = L.marker([51.166667, 71.433333]).addTo(map).bindPopup('test');
-
 // const marker = L.marker([51.5, -0.09]).addTo(map);
 // const marker2 = L.marker([51.51, -0.09]);
 // const marker3 = L.marker([51.52, -0.09]);
@@ -119,7 +118,7 @@ map.on('mousemove', onMapClick);
 
 var osmb = new OSMBuildings(map).load();
 
-var myLayer = L.geoJSON().addTo(map);
+var myLayer = L.geoJSON(img1).addTo(map);
 
 //********************************************************
 
