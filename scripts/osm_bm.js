@@ -1,6 +1,4 @@
-var towns = L.layerGroup();
-
-var map = L.map('map', {
+let map = L.map('map', {
 	center: [51.166667, 71.433333],
 	zoom: 10,
   minZoom: 3,
@@ -8,12 +6,22 @@ var map = L.map('map', {
 	// layers: [changeBasemaps, towns]
 });
 
-var changeBasemaps = map.addControl(L.control.basemaps({
+let hash = new L.Hash(map);
+
+let changeBasemaps = map.addControl(L.control.basemaps({
   basemaps: basemaps,
   tileX: 0,
   tileY: 0,
   tileZ: 1
 }));
+
+// OSM GEOCODER, search places & SEARCH FOR LAYERS
+var geocoder = L.Control.geocoder({
+  position: 'topleft'
+}).addTo(map);
+
+// let searchLayer = L.layerGroup().addTo(map)
+
 
 // var geoserver = L.tileLayer.wms("http://localhost:8080/geoserver/cite/wms", {
 //   layers: 'cite:teest_geo',
@@ -26,8 +34,44 @@ var changeBasemaps = map.addControl(L.control.basemaps({
 // layerControl.addOverlay(geoserver, "geo");
 
 // FEATURES ON MAP
+var myLayer = L.geoJSON(img1).addTo(map);
 
-var marker_test = L.marker([51.166667, 71.433333]).addTo(map).bindPopup('test');
+let rndmPoints = {
+"type": "FeatureCollection",
+"name": "rndm",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "title": 1 }, "geometry": { "type": "Point", "coordinates": [ 58.950784263533372, 51.371370795084758 ] } },
+{ "type": "Feature", "properties": { "title": -12 }, "geometry": { "type": "Point", "coordinates": [ 71.254925399166638, 49.963426855288837 ] } },
+{ "type": "Feature", "properties": { "title": 123 }, "geometry": { "type": "Point", "coordinates": [ 57.583657470685239, 46.434269783536195 ] } }
+]
+}
+
+let markersLayer = new L.LayerGroup();
+
+let sL = L.geoJSON(rndmPoints).addTo(map)
+map.addControl( new L.Control.Search({
+  layer: sL,
+  position: 'topright',
+  zoom: 10,
+  animate: true
+}) );
+
+L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
+L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
+    L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
+    L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
+    L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
+    L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
+    L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
+
+    L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
+    L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
+    L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
+    L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
+    L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
+    L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);    
+// var marker_test = L.marker([51.166667, 71.433333], {icon: L.AwseomeMarkers.icon({icon:'glass', prefix: 'fa', markerColor: 'green'})}).addTo(map).bindPopup('test');
 // const marker = L.marker([51.5, -0.09]).addTo(map);
 // const marker2 = L.marker([51.51, -0.09]);
 // const marker3 = L.marker([51.52, -0.09]);
@@ -117,8 +161,6 @@ map.on('mousemove', onMapClick);
 // L.geoJSON(cities).addTo(map).bindPopup(`<b>${Object.getOwnPropertyNames(cities.features[0].properties)[0]}</b>` + ": " + cities.features[0].properties.City + '<br>' + Object.getOwnPropertyNames(cities.features[0].properties)[1] + ": " + cities.features[0].properties.Population);
 
 var osmb = new OSMBuildings(map).load();
-
-var myLayer = L.geoJSON(img1).addTo(map);
 
 //********************************************************
 

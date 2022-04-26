@@ -21,7 +21,7 @@ const matrix = styleSideBar.transform || styleSideBar.webkitTransform || styleSi
 const matrixValues = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
 
 const animateSideBar = () => {
-    let changeIcon = document.querySelector('.fas')
+    let changeIconSide = document.getElementById('side-bar')
     if (leftBar.classList.contains('close-sidebar')) {
         anime({
             targets: '.left-sidebar',
@@ -30,8 +30,8 @@ const animateSideBar = () => {
             easing: 'easeInOutElastic(1, .6)'
         })
         leftBar.classList.remove('close-sidebar');
-        changeIcon.classList.remove('fa-arrow-alt-circle-left');
-        changeIcon.classList.add('fa-arrow-alt-circle-right');
+        changeIconSide.classList.remove('fa-arrow-alt-circle-left')
+        changeIconSide.classList.add('fa-arrow-alt-circle-right');
     } else {
         anime({
             targets: '.left-sidebar',
@@ -40,8 +40,8 @@ const animateSideBar = () => {
             easing: 'easeInOutElastic(1, .6)'
         })
         leftBar.classList.add('close-sidebar');
-        changeIcon.classList.remove('fa-arrow-alt-circle-right');
-        changeIcon.classList.add('fa-arrow-alt-circle-left');
+        changeIconSide.classList.remove('fa-arrow-alt-circle-right');
+        changeIconSide.classList.add('fa-arrow-alt-circle-left');
     }
 }
 
