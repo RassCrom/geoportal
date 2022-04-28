@@ -7,6 +7,7 @@ let map = L.map('map', {
 });
 
 let hash = new L.Hash(map);
+let scaele = L.control.scale().addTo(map);
 
 let changeBasemaps = map.addControl(L.control.basemaps({
   basemaps: basemaps,
