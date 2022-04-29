@@ -8,6 +8,7 @@ let map = L.map('map', {
 
 let hash = new L.Hash(map);
 let scaele = L.control.scale().addTo(map);
+var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
 
 let changeBasemaps = map.addControl(L.control.basemaps({
   basemaps: basemaps,
@@ -35,7 +36,7 @@ var geocoder = L.Control.geocoder({
 // layerControl.addOverlay(geoserver, "geo");
 
 // FEATURES ON MAP
-var myLayer = L.geoJSON(img1).addTo(map);
+// var myLayer = L.geoJSON(img1).addTo(map);
 
 let rndmPoints = {
 "type": "FeatureCollection",
@@ -50,28 +51,197 @@ let rndmPoints = {
 
 let markersLayer = new L.LayerGroup();
 
-let sL = L.geoJSON(rndmPoints).addTo(map)
-map.addControl( new L.Control.Search({
-  layer: sL,
+let sL = L.geoJSON(rndmPoints).addTo(map);
+
+// LAKES 
+var lakeStyle = {
+  "color": "#0000FF",
+  "weight": 1,
+  "opacity": 1
+};
+let allLakes = L.geoJSON(lakes, {style: lakeStyle});
+
+
+// map.addControl( new L.Control.Search({
+//   layer: layer_kaz_admbnda_adm2_2019_1,
+//   position: 'topright',
+//   zoom: 10,
+//   propertyName: 'ADM2_RU',
+//   animate: true
+// }) );
+
+map.addControl(new L.Control.Search({
+  layer: allReg,
   position: 'topright',
-  zoom: 10,
-  animate: true
-}) );
+  initial: false,
+  hideMarkerOnCollapse: true,
+  propertyName: 'ADM2_RU'}));
+document.getElementsByClassName('search-button')[0].className +=
+' fa fa-binoculars';
 
 L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
 L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
-    L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
-    L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
-    L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
-    L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
-    L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
+L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
+L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
+L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
+L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
+L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
+L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
+L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
+L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
+L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
+L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
+L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
+// L.geoJSON(json_kaz_admbnda_adm2_2019_1).addTo(map);
+// L.geoJSON(json_kaz_admbnda_adm1_2019_2).addTo(map);
 
-    L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
-    L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
-    L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
-    L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
-    L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
-    L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);    
+// AKMOLA BOUNDARIES 
+var bounds_group = new L.featureGroup([])
+function setBounds() {
+}
+function pop_kaz_admbnda_adm2_2019_1(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_EN'] !== null ? autolinker.link(feature.properties['ADM0_EN'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_KK'] !== null ? autolinker.link(feature.properties['ADM0_KK'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_RU'] !== null ? autolinker.link(feature.properties['ADM0_RU'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_PCODE'] !== null ? autolinker.link(feature.properties['ADM0_PCODE'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_EN'] !== null ? autolinker.link(feature.properties['ADM1_EN'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_KK'] !== null ? autolinker.link(feature.properties['ADM1_KK'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_RU'] !== null ? autolinker.link(feature.properties['ADM1_RU'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_PCODE'] !== null ? autolinker.link(feature.properties['ADM1_PCODE'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM2_EN'] !== null ? autolinker.link(feature.properties['ADM2_EN'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM2_KK'] !== null ? autolinker.link(feature.properties['ADM2_KK'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM2_RU'] !== null ? autolinker.link(feature.properties['ADM2_RU'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM2_PCODE'] !== null ? autolinker.link(feature.properties['ADM2_PCODE'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_kaz_admbnda_adm2_2019_1_0() {
+  return {
+      pane: 'pane_kaz_admbnda_adm2_2019_1',
+      opacity: 1,
+      color: 'rgba(233,35,100,1.0)',
+      dashArray: '',
+      lineCap: 'butt',
+      lineJoin: 'miter',
+      weight: 2.0, 
+      fill: true,
+      fillOpacity: 1,
+      fillColor: 'rgba(243,166,178,0.0)',
+      interactive: true,
+  }
+}
+map.createPane('pane_kaz_admbnda_adm2_2019_1');
+map.getPane('pane_kaz_admbnda_adm2_2019_1').style.zIndex = 401;
+map.getPane('pane_kaz_admbnda_adm2_2019_1').style['mix-blend-mode'] = 'normal';
+var allReg = new L.geoJson(json_kaz_admbnda_adm2_2019_1, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_kaz_admbnda_adm2_2019_1',
+  layerName: 'allReg',
+  pane: 'pane_kaz_admbnda_adm2_2019_1',
+  onEachFeature: pop_kaz_admbnda_adm2_2019_1,
+  style: style_kaz_admbnda_adm2_2019_1_0,
+});
+bounds_group.addLayer(allReg);
+map.addLayer(allReg);
+
+function pop_kaz_admbnda_adm1_2019_2(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_EN'] !== null ? autolinker.link(feature.properties['ADM0_EN'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_KK'] !== null ? autolinker.link(feature.properties['ADM0_KK'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_RU'] !== null ? autolinker.link(feature.properties['ADM0_RU'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM0_PCODE'] !== null ? autolinker.link(feature.properties['ADM0_PCODE'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_EN'] !== null ? autolinker.link(feature.properties['ADM1_EN'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_KK'] !== null ? autolinker.link(feature.properties['ADM1_KK'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_RU'] !== null ? autolinker.link(feature.properties['ADM1_RU'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['ADM1_PCODE'] !== null ? autolinker.link(feature.properties['ADM1_PCODE'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_kaz_admbnda_adm1_2019_2_0() {
+  return {
+      pane: 'pane_kaz_admbnda_adm1_2019_2',
+      opacity: 1,
+      color: 'rgba(35,255,35,1.0)',
+      dashArray: '',
+      lineCap: 'butt',
+      lineJoin: 'miter',
+      weight: 2.0, 
+      fill: true,
+      fillOpacity: 1,
+      fillColor: 'rgba(200,202,200,0.0)',
+      interactive: true,
+  }
+}
+map.createPane('pane_kaz_admbnda_adm1_2019_2');
+map.getPane('pane_kaz_admbnda_adm1_2019_2').style.zIndex = 402;
+map.getPane('pane_kaz_admbnda_adm1_2019_2').style['mix-blend-mode'] = 'normal';
+var allObl = new L.geoJson(json_kaz_admbnda_adm1_2019_2, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_kaz_admbnda_adm1_2019_2',
+  layerName: 'allObl',
+  pane: 'pane_kaz_admbnda_adm1_2019_2',
+  onEachFeature: pop_kaz_admbnda_adm1_2019_2,
+  style: style_kaz_admbnda_adm1_2019_2_0,
+});
+bounds_group.addLayer(allObl);
+map.addLayer(allObl);
+setBounds();
+// map.addControl(new L.Control.Search({
+//   layer: layer_kaz_admbnda_adm2_2019_1,
+//   initial: false,
+//   hideMarkerOnCollapse: true,
+//   propertyName: 'ADM2_RU'}));
+// document.getElementsByClassName('search-button')[0].className +=
+// ' fa fa-binoculars';
+
+
+
+
 // var marker_test = L.marker([51.166667, 71.433333], {icon: L.AwseomeMarkers.icon({icon:'glass', prefix: 'fa', markerColor: 'green'})}).addTo(map).bindPopup('test');
 // const marker = L.marker([51.5, -0.09]).addTo(map);
 // const marker2 = L.marker([51.51, -0.09]);
@@ -262,3 +432,157 @@ osmb.click(function(e) {
       .openOn(map);
   });
 });
+
+
+
+// ECO MAP 
+function pop_3_2(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2"><strong>Организация</strong><br />' + (feature.properties['Организация'] !== null ? autolinker.link(feature.properties['Организация'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Категория</strong><br />' + (feature.properties['Категория'] !== null ? autolinker.link(feature.properties['Категория'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Адрес</strong><br />' + (feature.properties['Адрес'] !== null ? autolinker.link(feature.properties['Адрес'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_3_2_0() {
+  return {
+      pane: 'pane_3_2',
+rotationAngle: 0.0,
+rotationOrigin: 'center center',
+icon: L.icon({
+  iconUrl: 'markers/ecology-flask-svgrepo-com.svg',
+  iconSize: [19.0, 19.0]
+}),
+      interactive: true,
+  }
+}
+map.createPane('pane_3_2');
+map.getPane('pane_3_2').style.zIndex = 402;
+map.getPane('pane_3_2').style['mix-blend-mode'] = 'normal';
+var layer_3_2 = new L.geoJson(json_3_2, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_3_2',
+  layerName: 'layer_3_2',
+  pane: 'pane_3_2',
+  onEachFeature: pop_3_2,
+  pointToLayer: function (feature, latlng) {
+      var context = {
+          feature: feature,
+          variables: {}
+      };
+      return L.marker(latlng, style_3_2_0(feature));
+  },
+});
+var cluster_3_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+  spiderfyDistanceMultiplier: 2});
+cluster_3_2.addLayer(layer_3_2);
+
+bounds_group.addLayer(layer_3_2);
+cluster_3_2.addTo(map);
+function pop_2_3(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2"><strong>Организация</strong><br />' + (feature.properties['Организация'] !== null ? autolinker.link(feature.properties['Организация'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Категория</strong><br />' + (feature.properties['Категория'] !== null ? autolinker.link(feature.properties['Категория'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Информация</strong><br />' + (feature.properties['Информация'] !== null ? autolinker.link(feature.properties['Информация'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_2_3_0() {
+  return {
+      pane: 'pane_2_3',
+rotationAngle: 0.0,
+rotationOrigin: 'center center',
+icon: L.icon({
+  iconUrl: 'markers/ecology-svgrepo-com.svg',
+  iconSize: [19.0, 19.0]
+}),
+      interactive: true,
+  }
+}
+map.createPane('pane_2_3');
+map.getPane('pane_2_3').style.zIndex = 403;
+map.getPane('pane_2_3').style['mix-blend-mode'] = 'normal';
+var layer_2_3 = new L.geoJson(json_2_3, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_2_3',
+  layerName: 'layer_2_3',
+  pane: 'pane_2_3',
+  onEachFeature: pop_2_3,
+  pointToLayer: function (feature, latlng) {
+      var context = {
+          feature: feature,
+          variables: {}
+      };
+      return L.marker(latlng, style_2_3_0(feature));
+  },
+});
+var cluster_2_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+  spiderfyDistanceMultiplier: 2});
+cluster_2_3.addLayer(layer_2_3);
+
+bounds_group.addLayer(layer_2_3);
+cluster_2_3.addTo(map);
+function pop_1_4(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2"><strong>Организация</strong><br />' + (feature.properties['Организация'] !== null ? autolinker.link(feature.properties['Организация'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Категория</strong><br />' + (feature.properties['Категория'] !== null ? autolinker.link(feature.properties['Категория'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_1_4_0() {
+  return {
+      pane: 'pane_1_4',
+rotationAngle: 0.0,
+rotationOrigin: 'center center',
+icon: L.icon({
+  iconUrl: 'markers/ecology-svgrepo-com (1).svg',
+  iconSize: [19.0, 19.0]
+}),
+      interactive: true,
+  }
+}
+map.createPane('pane_1_4');
+map.getPane('pane_1_4').style.zIndex = 404;
+map.getPane('pane_1_4').style['mix-blend-mode'] = 'normal';
+var layer_1_4 = new L.geoJson(json_1_4, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_1_4',
+  layerName: 'layer_1_4',
+  pane: 'pane_1_4',
+  onEachFeature: pop_1_4,
+  pointToLayer: function (feature, latlng) {
+      var context = {
+          feature: feature,
+          variables: {}
+      };
+      return L.marker(latlng, style_1_4_0(feature));
+  },
+});
+var cluster_1_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+  spiderfyDistanceMultiplier: 2});
+cluster_1_4.addLayer(layer_1_4);
+
+bounds_group.addLayer(layer_1_4);
+cluster_1_4.addTo(map);

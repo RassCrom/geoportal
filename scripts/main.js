@@ -158,3 +158,108 @@ home.addEventListener('click', flyToHome)
 
 // // Copy Clipboard
 // var clipboard = new ClipboardJS('#copy');
+
+
+// ACCORDION
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + 40 + "px";
+    }
+  });
+};
+
+// Custom control 
+let mL = {
+    _eco: ['#toggle-eco', '#opacity-eco', [cluster_1_4, cluster_2_3,cluster_3_2]],
+    _lake: ['#toggle-lake', '#opacity-lake', allLakes],
+    _obl: ['#toggle-obl', '#opacity-obl', allObl],
+    _reg: ['#toggle-reg', '#opacity-reg', allReg],
+    get eco() {
+        return this._eco;
+    },
+    get lake() {
+        return this._lake;
+    },
+    get obl() {
+        return this._obl;
+    },
+    get reg() {
+        return this._reg;
+    },
+}
+
+$(mL.lake[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.lake[2].addTo(map);
+    } else {
+        map.removeLayer(allLakes);
+    } 
+})
+
+$(mL.lake[1]).on('change', function() {
+    let val = $(this).val();
+    let opa = val / 100;
+    // console.log(opa)
+    mL.lake[2].setStyle({fillOpacity: c, opacity: opa})
+})
+
+$(mL.eco[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.eco[2][0].addTo(map);
+        mL.eco[2][1].addTo(map);
+        mL.eco[2][2].addTo(map);
+    } else {
+        map.removeLayer(mL.eco[2][0]);
+        map.removeLayer(mL.eco[2][1]);
+        map.removeLayer(mL.eco[2][2]);
+    } 
+})
+
+$(mL.eco[1]).on('change', function() {
+    let val = $(this).val();
+    let opa = val / 100;
+    console.log(opa)
+    mL.eco[2][0].setStyle({fillOpacity: opa, opacity: opa})
+    mL.eco[2][1].setStyle({fillOpacity: opa, opacity: opa})
+    mL.eco[2][2].setStyle({fillOpacity: opa, opacity: opa})
+})
+
+$(mL.obl[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.obl[2].addTo(map);
+    } else {
+        map.removeLayer(mL.obl[2]);
+    } 
+})
+
+$(mL.obl[1]).on('change', function() {
+    let val = $(this).val();
+    let opa = val / 100;
+    mL.obl[2].setStyle({fillOpacity: opa, opacity: opa})
+})
+
+$(mL.reg[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.reg[2].addTo(map);
+        console.log(mL.reg[2])
+    } else {
+        map.removeLayer(mL.reg[2]);
+    } 
+})
+
+$(mL.reg[1]).on('change', function() {
+    let val = $(this).val();
+    let opa = val / 100;
+    mL.reg[2].setStyle({fillOpacity: opa, opacity: opa})
+})
+
+
+

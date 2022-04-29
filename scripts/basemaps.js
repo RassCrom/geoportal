@@ -34,9 +34,9 @@ var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest
 
 // Layer Control 
 var baseLayers = {
+    'Thunderforest-Transport Dark': Thunderforest_TransportDark,
     'Map Box': mapbox,
     'OSM-Mapnik': OpenStreetMapMapnik,
-    'Thunderforest-Transport Dark': Thunderforest_TransportDark,
     'Thunderforest-mobile': Thunderforest_mobile,
     'Esri_DeLorme': Esri_DeLorme,
     'Esri_NatGeoWorldMap': Esri_NatGeoWorldMap,
@@ -44,15 +44,16 @@ var baseLayers = {
 };
 
 var basemaps = [
-    L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }),
-
     L.tileLayer('https://tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey=60e3b8ca0f5c4f72932ac72ed1861401', {
         attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 22
+    }),
+
+    L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }),
 
     L.tileLayer('https://tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png?apikey=60e3b8ca0f5c4f72932ac72ed1861401', {

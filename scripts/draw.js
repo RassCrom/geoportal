@@ -67,8 +67,7 @@ map.addControl(new customControl());
 // Drow polygon, circle, rectangle, polyline
 // --------------------------------------------------
 
-let drawnItems = L.featureGroup();
-let dI = L.control.layers(null, drawnItems, {position: 'toprgiht'});
+let drawnItems = L.featureGroup().addTo(map);
 
 map.addControl(
   new L.Control.Draw({
