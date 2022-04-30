@@ -38,28 +38,28 @@ var geocoder = L.Control.geocoder({
 // FEATURES ON MAP
 // var myLayer = L.geoJSON(img1).addTo(map);
 
-let rndmPoints = {
-"type": "FeatureCollection",
-"name": "rndm",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "title": 1 }, "geometry": { "type": "Point", "coordinates": [ 58.950784263533372, 51.371370795084758 ] } },
-{ "type": "Feature", "properties": { "title": -12 }, "geometry": { "type": "Point", "coordinates": [ 71.254925399166638, 49.963426855288837 ] } },
-{ "type": "Feature", "properties": { "title": 123 }, "geometry": { "type": "Point", "coordinates": [ 57.583657470685239, 46.434269783536195 ] } }
-]
-}
+// let rndmPoints = {
+// "type": "FeatureCollection",
+// "name": "rndm",
+// "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+// "features": [
+// { "type": "Feature", "properties": { "title": 1 }, "geometry": { "type": "Point", "coordinates": [ 58.950784263533372, 51.371370795084758 ] } },
+// { "type": "Feature", "properties": { "title": -12 }, "geometry": { "type": "Point", "coordinates": [ 71.254925399166638, 49.963426855288837 ] } },
+// { "type": "Feature", "properties": { "title": 123 }, "geometry": { "type": "Point", "coordinates": [ 57.583657470685239, 46.434269783536195 ] } }
+// ]
+// }
 
-let markersLayer = new L.LayerGroup();
+// let markersLayer = new L.LayerGroup();
 
-let sL = L.geoJSON(rndmPoints).addTo(map);
+// let sL = L.geoJSON(rndmPoints).addTo(map);
 
 // LAKES 
 var lakeStyle = {
-  "color": "#0000FF",
-  "weight": 1,
+  "color": "#cce0fe",
+  "weight": 2,
   "opacity": 1
 };
-let allLakes = L.geoJSON(lakes, {style: lakeStyle});
+let allLakes = L.geoJSON(lakes, {style: lakeStyle}).addTo(map);
 
 
 // map.addControl( new L.Control.Search({
@@ -79,19 +79,19 @@ map.addControl(new L.Control.Search({
 document.getElementsByClassName('search-button')[0].className +=
 ' fa fa-binoculars';
 
-L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
-L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
-L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
-L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
-L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
-L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
-L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
-L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
-L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
-L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
-L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
-L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
-L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
+// L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
+// L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
+// L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
+// L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
+// L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
+// L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
+// L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
+// L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
+// L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
+// L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
+// L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
+// L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
+// L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
 // L.geoJSON(json_kaz_admbnda_adm2_2019_1).addTo(map);
 // L.geoJSON(json_kaz_admbnda_adm1_2019_2).addTo(map);
 
@@ -486,7 +486,7 @@ var cluster_3_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
 cluster_3_2.addLayer(layer_3_2);
 
 bounds_group.addLayer(layer_3_2);
-cluster_3_2.addTo(map);
+// cluster_3_2.addTo(map);
 function pop_2_3(feature, layer) {
   var popupContent = '<table>\
           <tr>\
@@ -537,7 +537,7 @@ var cluster_2_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
 cluster_2_3.addLayer(layer_2_3);
 
 bounds_group.addLayer(layer_2_3);
-cluster_2_3.addTo(map);
+// cluster_2_3.addTo(map);
 function pop_1_4(feature, layer) {
   var popupContent = '<table>\
           <tr>\
@@ -585,4 +585,4 @@ var cluster_1_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
 cluster_1_4.addLayer(layer_1_4);
 
 bounds_group.addLayer(layer_1_4);
-cluster_1_4.addTo(map);
+// cluster_1_4.addTo(map);
