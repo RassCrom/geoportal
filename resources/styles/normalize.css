@@ -35,6 +35,7 @@ body {
     font-size: 12px;
     scroll-behavior: smooth;
     overflow-y: hidden;
+    overflow: hidden;
     transition: all .3s ease;
 }
 body {
@@ -264,6 +265,24 @@ body {
     justify-content: center;
 }
 
+.chart-lake {
+    position: absolute;
+    background-color: white;
+    width: 900px;
+    height: 80vh;
+    z-index: 1000;
+    top: 10vh;
+    right: -100%;
+    border-radius: 9px;
+    box-shadow: 0 0 14px lightblue;
+    opacity: 1;
+    transform: translateX(0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #chart-test {
     width: 90%;
     height: 90%;
@@ -286,12 +305,13 @@ body {
     z-index: 2000;
     width: 220px;
     height: 30px;
-    top: 250px;
+    top: 295px;
     left: 50px;
+    opacity: 1;
     border-radius: 9px;
     align-items: center;
     justify-content: space-around;
-    transition: display .3s linear;
+    transition: opacity .3s ease-in-out;
 }
 
 #buffer-settings input {

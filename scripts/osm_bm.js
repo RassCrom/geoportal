@@ -1,8 +1,8 @@
 let map = L.map('map', {
-	center: [51.166667, 71.433333],
-	zoom: 10,
+	center: [51.769, 70.334],
+	zoom: 7,
   minZoom: 3,
-  maxZoom: 17,
+  maxZoom: 15,
 	// layers: [changeBasemaps, towns]
 });
 
@@ -59,7 +59,44 @@ var lakeStyle = {
   "weight": 2,
   "opacity": 1
 };
-let allLakes = L.geoJSON(lakes, {style: lakeStyle}).addTo(map);
+
+
+
+// function getColor() {
+//   for (let i = 0; i < lakesStyledArea.features.length; i++) {
+//     let grad = lakesStyledArea.features[i].properties.Shape_Area;
+//     return grad >= 36395100 ? '#2c7bb6' :
+//             grad >= 11958300 ? '#75b1d3' :
+//             grad >= 7143300 ? '#b7dee3' :
+//             grad >= 4240800 ? '#e7f4cb' :
+//             grad >= 2373300 ? '#fee8a4' :
+//             grad >= 1062000 ? '#fdba6e' :
+//             grad >= 282600 ? '#FFA500' : '#FF0000';
+//   }
+// }
+
+function getColor(grad) {
+    return grad >= 36395100 ? '#2c7bb6' :
+            grad >= 11958300 ? '#75b1d3' :
+            grad >= 7143300 ? '#b7dee3' :
+            grad >= 4240800 ? '#e7f4cb' :
+            grad >= 2373300 ? '#fee8a4' :
+            grad >= 1062000 ? '#fdba6e' :
+            grad >= 282600 ? '#FFA500' : '#FF0000';
+}
+
+function style(el) {
+  return {
+      fillColor: getColor(el.properties.Shape_Area),
+      weight: 1,
+      opacity: 1,
+      color: getColor(el.properties.Shape_Area),
+      dashArray: '3',
+      fillOpacity: 1
+  };
+}
+
+let allLakes = L.geoJSON(lakesStyledArea, {style: style}).addTo(map);
 
 
 // map.addControl( new L.Control.Search({

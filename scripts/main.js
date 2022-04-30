@@ -150,7 +150,7 @@ rndm.addEventListener('click', rndmFly)
 
 // FLY TO HOME POSITION 
 const flyToHome = () => {
-    map.flyTo([51.166667, 71.433333], 15)
+    map.flyTo([51.769, 70.334], 7)
 }
 
 home.addEventListener('click', flyToHome)

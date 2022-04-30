@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geoportal</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Геопортал | Акмолинская область</title>
     <link rel="shortcut icon" href="./resources/img/gps.png" type="image/x-icon">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -76,7 +78,11 @@
         <div class="panel lake">
             <h3 class="title-layer">Озера</h3>
             <p class="description">Показывает все водные объекты расположенные в Акмолинской области</p>
-            <input type="checkbox" name="toggle-lake" id="toggle-lake" class="toggle-button">
+            <div class="btn-lakes__container">
+                <!-- <button id="show-graph" class="btn">Показать графики</button> -->
+                <button id="open-stat" class="btn">Открыть статистику</button>
+            </div>
+            <input type="checkbox" checked name="toggle-lake" id="toggle-lake" class="toggle-button">
             <label for="toggle-lake" class="text">Включить / Отключить слой</label>
             <input id='opacity-lake' type='range'>
             <label for="opacity-lake" class="text">Прозрачность</label>         
@@ -85,7 +91,7 @@
         <div class="panel lake">
             <h3 class="title-layer">Граница области</h3>
             <p class="description">Отображение векторной границы Акмолинской области соединенная с границами Нур-Султана</p>
-            <input type="checkbox" checked="checked" name="toggle-obl" id="toggle-obl" class="toggle-button">
+            <input type="checkbox" checked name="toggle-obl" id="toggle-obl" class="toggle-button">
             <label for="toggle-obl" class="text">Включить / Отключить слой</label>
             <input id='opacity-obl' type='range'>
             <label for="opacity-obl" class="text">Прозрачность</label>         
@@ -94,7 +100,7 @@
         <div class="panel lake">
             <h3 class="title-layer">Границы Райнов</h3>
             <p class="description">Границы районов в Акмолинской области и в Нур-Султане</p>
-            <input type="checkbox" checked="checked" name="toggle-reg" id="toggle-reg" class="toggle-button">
+            <input type="checkbox" checked name="toggle-reg" id="toggle-reg" class="toggle-button">
             <label for="toggle-reg" class="text">Включить / Отключить слой</label>
             <input id='opacity-reg' type='range'>
             <label for="opacity-reg" class="text">Прозрачность</label>         
@@ -121,8 +127,9 @@
     </div>
     <div class="chart-window">
         <canvas class="" id="chart-test"></canvas>
-        <button id="close-chart" class="btn btn-chart">Close chart</button>
+        <button id="close-chart" class="btn btn-chart">Закрыть график</button>
     </div>
+    
     <div id="map">
         <div id='side-icon' class="side-icon">
             <!-- <button id="btn-shower" class="side-icon__link" title="Вернуться домой">
@@ -145,10 +152,14 @@
             </button>
         </div>
     </div>
-    <div class="time-control">Shadows
+    <div class="chart-lake">
+        <canvas class="" id="lake-canvas"></canvas>
+        <button id="close-chart-lake" class="btn btn-chart">Закрыть диаграмму</button>
+    </div>
+    <div class="time-control">Тени
         <input id="date" type="range" min="1" max="365" step="1"><label for="date"></label>
         <input id="time" type="range" min="0" max="23" step="1"><label for="time"></label>
-        <span id="copy-coords">Coords: X <span id="xcoor"></span>, Y <span id="ycoor"></span></span>
+        <span id="copy-coords">Координаты: X <span id="xcoor"></span>, Y <span id="ycoor"></span></span>
         <!-- <button data-clipboard-target="#xcoor" data-clipboard-target="#ycoor" class="btn-copy" id="copy">Copy</button>  -->
     </div>
     <div id="buffer-settings" style="display: none;">
@@ -158,6 +169,7 @@
         </button>
     </div>
     <!-- DATA  -->
+    <script src="./scripts/data/lakes_styled.geojson.js"></script>
     <script src="./scripts/data/kaz_admbnda_adm2_2019_1.js"></script>
     <script src="./scripts/data/kaz_admbnda_adm1_2019_2.js"></script>
     <script src="./scripts/data/data.js"></script>
