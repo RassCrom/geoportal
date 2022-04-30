@@ -3,7 +3,6 @@ let map = L.map('map', {
 	zoom: 7,
   minZoom: 3,
   maxZoom: 15,
-	// layers: [changeBasemaps, towns]
 });
 
 let hash = new L.Hash(map);
@@ -107,14 +106,6 @@ let allLakes = L.geoJSON(lakesStyledArea, {style: style}).addTo(map);
 //   animate: true
 // }) );
 
-map.addControl(new L.Control.Search({
-  layer: allReg,
-  position: 'topright',
-  initial: false,
-  hideMarkerOnCollapse: true,
-  propertyName: 'ADM2_RU'}));
-document.getElementsByClassName('search-button')[0].className +=
-' fa fa-binoculars';
 
 // L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
 // L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
@@ -623,3 +614,12 @@ cluster_1_4.addLayer(layer_1_4);
 
 bounds_group.addLayer(layer_1_4);
 // cluster_1_4.addTo(map);
+
+map.addControl(new L.Control.Search({
+  layer: allReg,
+  position: 'topright',
+  initial: true,
+  hideMarkerOnCollapse: true,
+  propertyName: 'ADM2_RU',}));
+document.getElementsByClassName('search-button')[0].className +=
+' fa fa-binoculars';

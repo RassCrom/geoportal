@@ -75,7 +75,7 @@ const data = {
   labels: dataRegion,
   datasets: [
     {
-      label: 'Суммарная площадь',
+      label: 'Суммарная площадь водных объектов по регионам Акмолинской области, кв. км.',
       data: dataArea,
       backgroundColor: 'red',
     }
