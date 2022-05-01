@@ -53,11 +53,14 @@ let delayed;
 openStat.addEventListener('click', function() {
     anime({
         targets: '.chart-lake',
-        translateX: -1700,
+        translateX: -1581,
         opacity: 1,
         easing: 'easeInOutElastic(1, .6)'
     })
+    document.querySelector('.chart-lake').style.display = 'flex';
 })
+
+openStat.addEventListener('click', animateSideBar)
 
 closeChartLake.addEventListener('click', function() {
     anime({

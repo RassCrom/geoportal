@@ -166,19 +166,20 @@ var i;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
+    this.classList.toggle("active-map");
     var panel = this.nextElementSibling;
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {
-      panel.style.maxHeight = panel.scrollHeight + 40 + "px";
+        panel.style.maxHeight = panel.scrollHeight + 120 + "px";
     }
   });
 };
 
+
 // Custom control 
 let mL = {
-    _eco: ['#toggle-eco', '#opacity-eco', [cluster_1_4, cluster_2_3,cluster_3_2]],
+    _eco: ['#toggle-eco', '#opacity-eco', [cluster_1_4, cluster_2_3, cluster_3_2]],
     _lake: ['#toggle-lake', '#opacity-lake', allLakes],
     _obl: ['#toggle-obl', '#opacity-obl', allObl],
     _reg: ['#toggle-reg', '#opacity-reg', allReg],

@@ -2,12 +2,13 @@ let map = L.map('map', {
 	center: [51.769, 70.334],
 	zoom: 7,
   minZoom: 3,
-  maxZoom: 15,
+  maxZoom: 20,
 });
 
 let hash = new L.Hash(map);
 let scaele = L.control.scale().addTo(map);
 var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+let userLoc = L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
 let changeBasemaps = map.addControl(L.control.basemaps({
   basemaps: basemaps,
@@ -21,9 +22,6 @@ var geocoder = L.Control.geocoder({
   position: 'topleft'
 }).addTo(map);
 
-// let searchLayer = L.layerGroup().addTo(map)
-
-
 // var geoserver = L.tileLayer.wms("http://localhost:8080/geoserver/cite/wms", {
 //   layers: 'cite:teest_geo',
 //   format: 'image/png',
@@ -31,48 +29,13 @@ var geocoder = L.Control.geocoder({
 //   attribution: "Lakes"
 // }).addTo(map);
 
-// var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
-// layerControl.addOverlay(geoserver, "geo");
-
 // FEATURES ON MAP
-// var myLayer = L.geoJSON(img1).addTo(map);
-
-// let rndmPoints = {
-// "type": "FeatureCollection",
-// "name": "rndm",
-// "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-// "features": [
-// { "type": "Feature", "properties": { "title": 1 }, "geometry": { "type": "Point", "coordinates": [ 58.950784263533372, 51.371370795084758 ] } },
-// { "type": "Feature", "properties": { "title": -12 }, "geometry": { "type": "Point", "coordinates": [ 71.254925399166638, 49.963426855288837 ] } },
-// { "type": "Feature", "properties": { "title": 123 }, "geometry": { "type": "Point", "coordinates": [ 57.583657470685239, 46.434269783536195 ] } }
-// ]
-// }
-
-// let markersLayer = new L.LayerGroup();
-
-// let sL = L.geoJSON(rndmPoints).addTo(map);
-
 // LAKES 
 var lakeStyle = {
   "color": "#cce0fe",
   "weight": 2,
   "opacity": 1
 };
-
-
-
-// function getColor() {
-//   for (let i = 0; i < lakesStyledArea.features.length; i++) {
-//     let grad = lakesStyledArea.features[i].properties.Shape_Area;
-//     return grad >= 36395100 ? '#2c7bb6' :
-//             grad >= 11958300 ? '#75b1d3' :
-//             grad >= 7143300 ? '#b7dee3' :
-//             grad >= 4240800 ? '#e7f4cb' :
-//             grad >= 2373300 ? '#fee8a4' :
-//             grad >= 1062000 ? '#fdba6e' :
-//             grad >= 282600 ? '#FFA500' : '#FF0000';
-//   }
-// }
 
 function getColor(grad) {
     return grad >= 36395100 ? '#2c7bb6' :
@@ -95,31 +58,9 @@ function style(el) {
   };
 }
 
-let allLakes = L.geoJSON(lakesStyledArea, {style: style}).addTo(map);
+let allLakes = L.geoJSON(lakesStyledArea, {style: style});
+// allLakes.addTo(map);
 
-
-// map.addControl( new L.Control.Search({
-//   layer: layer_kaz_admbnda_adm2_2019_1,
-//   position: 'topright',
-//   zoom: 10,
-//   propertyName: 'ADM2_RU',
-//   animate: true
-// }) );
-
-
-// L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
-// L.marker([51.941196,4.512291], {icon: L.AwesomeMarkers.icon({icon: 'spinner', prefix: 'fa', markerColor: 'red', spin:true}) }).addTo(map);
-// L.marker([51.927913,4.521303], {icon: L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: '#f28f82'}) }).addTo(map);
-// L.marker([51.936063,4.502077], {icon: L.AwesomeMarkers.icon({icon: 'cog', prefix: 'fa', markerColor: 'purple', iconColor: 'black'}) }).addTo(map);
-// L.marker([51.932835,4.506969], {icon: L.AwesomeMarkers.icon({icon: 'glass', prefix: 'fa', markerColor: 'green'}) }).addTo(map);
-// L.marker([51.930295,4.515209], {icon: L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'blue'}) }).addTo(map);
-// L.marker([51.930083,4.507742], {icon: L.AwesomeMarkers.icon({icon: 'info', prefix: 'fa', markerColor: 'orange'}) }).addTo(map);
-// L.marker([51.930454,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'group', prefix: 'fa', markerColor: 'darkred'}) }).addTo(map);
-// L.marker([51.929607,4.527054], {icon: L.AwesomeMarkers.icon({icon: 'arrow-right', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
-// L.marker([51.928919,4.528856], {icon: L.AwesomeMarkers.icon({icon: 'twitter', prefix: 'fa', markerColor: 'cadetblue'}) }).addTo(map);
-// L.marker([51.930295,4.530745], {icon: L.AwesomeMarkers.icon({icon: 'phone', prefix: 'fa', markerColor: 'darkpurple'}) }).addTo(map);
-// L.marker([51.925055,4.512806], {icon: L.AwesomeMarkers.icon({icon: 'ambulance', prefix: 'fa', markerColor: 'darkgreen'}) }).addTo(map);
-// L.marker([51.925902,4.505768], {icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) }).addTo(map);
 // L.geoJSON(json_kaz_admbnda_adm2_2019_1).addTo(map);
 // L.geoJSON(json_kaz_admbnda_adm1_2019_2).addTo(map);
 
@@ -197,7 +138,7 @@ var allReg = new L.geoJson(json_kaz_admbnda_adm2_2019_1, {
   style: style_kaz_admbnda_adm2_2019_1_0,
 });
 bounds_group.addLayer(allReg);
-map.addLayer(allReg);
+// map.addLayer(allReg);
 
 function pop_kaz_admbnda_adm1_2019_2(feature, layer) {
   var popupContent = '<table>\
@@ -257,95 +198,41 @@ var allObl = new L.geoJson(json_kaz_admbnda_adm1_2019_2, {
   style: style_kaz_admbnda_adm1_2019_2_0,
 });
 bounds_group.addLayer(allObl);
-map.addLayer(allObl);
+// map.addLayer(allObl);
 setBounds();
-// map.addControl(new L.Control.Search({
-//   layer: layer_kaz_admbnda_adm2_2019_1,
-//   initial: false,
-//   hideMarkerOnCollapse: true,
-//   propertyName: 'ADM2_RU'}));
-// document.getElementsByClassName('search-button')[0].className +=
-// ' fa fa-binoculars';
 
+function hospStyle(feature, layer) {
+  var popupContent2 = '<table>\
+          <tr>\
+              <td colspan="2"><strong>Тип объекта</strong><br />' + (feature.properties['fclass'] !== null ? autolinker.link(feature.properties['fclass'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Тип здания</strong><br />' + (feature.properties['type'] !== null ? autolinker.link(feature.properties['type'].toLocaleString()) : '') + '</td>\
+          </tr>\
+          <tr>\
+              <td colspan="2"><strong>Название</strong><br />' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent2, {maxHeight: 400});
+}
 
+var hospital = new L.geoJson(hosp, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_hosp',
+  layerName: 'Hospitals',
+  pane: 'Hospitals',
+  onEachFeature: hospStyle,
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
+},
+}).addTo(map);
 
-
-// var marker_test = L.marker([51.166667, 71.433333], {icon: L.AwseomeMarkers.icon({icon:'glass', prefix: 'fa', markerColor: 'green'})}).addTo(map).bindPopup('test');
-// const marker = L.marker([51.5, -0.09]).addTo(map);
-// const marker2 = L.marker([51.51, -0.09]);
-// const marker3 = L.marker([51.52, -0.09]);
-// const polygon = L.polygon([[51.51, -0.1],[51.5, -0.08],[51.53, -0.07],[51.50, -0.06]], {color: '#FF0000'}).addTo(map);
-// const polygon2 = L.polygon([[51.51, -0.1],[51.5, -0.08],[51.53, -0.07],[51.50, -0.06]], {color: '#0122FF'}).addTo(map);
-
-// const mylines = [{
-//     "type": "LineString",
-//     "coordinates": [[-0.1,51.51], [-0.07,51.53]]
-// }, {
-//     "type": "LineString",
-//     "coordinates": [[-0.1,51.5], [-0.07,51.50]]
-// }];
-// const geojson = L.geoJSON(null).addTo(map);
-// geojson.addData(mylines);
-
-// const states = [{
-//     "type": "Feature",
-//     "properties": {"party": "Republican"},
-//     "geometry": {
-//         "type": "Polygon",
-//         "coordinates": [[
-//             [-104.05, 48.99],
-//             [-97.22,  48.98],
-//             [-96.58,  45.94],
-//             [-104.03, 45.94],
-//             [-104.05, 48.99]
-//         ]]
-//     }
-// }, {
-//     "type": "Feature",
-//     "properties": {"party": "Democrat"},
-//     "geometry": {
-//         "type": "Polygon",
-//         "coordinates": [[
-//             [-109.05, 41.00],
-//             [-102.06, 40.99],
-//             [-102.03, 36.99],
-//             [-109.04, 36.99],
-//             [-109.05, 41.00]
-//         ]]
-//     }
-// }, {
-//     "type": "Feature",
-//     "properties": {"party": "Democrat"},
-//     "geometry": {
-//         "type": "Polygon",
-//         "coordinates": [[
-//             [-109.05, 41.00],
-//             [-102.06, 40.99],
-//             [-102.03, 36.99],
-//             [-109.04, 36.99],
-//             [-109.05, 41.00]
-//         ]]
-//     }
-// }];
-
-// const geojsonStates = L.geoJSON(states, {style: function(state) {
-//     return (state.properties.party === 'Republican') 
-//             ? {fillColor:'red', color:'red', opacity:1, legendLabel: state.properties.party} : {fillColor:'blue', color:'blue', opacity:1, legendLabel: state.properties.party}
-// }}).addTo(map);
-
-// const overlays = [
-//   {name: 'Marker', layer: marker},
-//   {name: 'Marker2', layer: marker2},
-//   {name: 'polygon', layer: polygon},
-//   {name: 'polygon2', layer: polygon2},
-//   {name: 'geojson', layer: geojson},
-//   {name: 'geojsonStates', layer: geojsonStates},
-// ];
-
-// const legend = L.multiControl(overlays, {position:'topright', label: 'Control panel'}).addTo(map);
-
-
-
+// L.geoJSON(hosp, {
+//   pointToLayer: function(feature,latlng){
+//     return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
+//   }
+// }).addTo(map).bindPopup(hosp.features[0].properties.type);
 // Coordinates 
 var x = document.getElementById('xcoor')
 var y = document.getElementById('ycoor')
@@ -613,13 +500,73 @@ var cluster_1_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
 cluster_1_4.addLayer(layer_1_4);
 
 bounds_group.addLayer(layer_1_4);
-// cluster_1_4.addTo(map);
+cluster_1_4.addTo(map);
 
-map.addControl(new L.Control.Search({
-  layer: allReg,
-  position: 'topright',
-  initial: true,
-  hideMarkerOnCollapse: true,
-  propertyName: 'ADM2_RU',}));
-document.getElementsByClassName('search-button')[0].className +=
-' fa fa-binoculars';
+// map.addControl(new L.Control.Search({
+//   layer: allReg,
+//   position: 'topright',
+//   initial: false,
+//   hideMarkerOnCollapse: true,
+//   propertyName: 'ADM2_RU',}));
+// document.getElementsByClassName('search-button')[0].className +=
+// ' fa fa-binoculars';
+
+// let testc = L.marker([51.769, 70.334]).addTo(map);
+// testc.addEventListener('click', function(event) {
+//   map.flyTo([event.latlng.lat, event.latlng.lng], 13)
+// })
+
+// var polygon = L.polygon([
+//   [51.509, -0.08],
+//   [51.503, -0.06],
+//   [51.51, -0.047]
+// ]).addTo(map);
+// polygon.on("click", function (event) {
+//   map.fitBounds(event.target._bounds);
+// });
+
+// Routing
+let locPoint;
+let nearest;
+let path;
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+
+  locPoint = L.marker(e.latlng).addTo(map)
+      .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+  L.circle(e.latlng, radius).addTo(map);
+  nearest = leafletKnn(hospital).nearest(L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),1);
+}
+
+function onLocationError(e) {
+  alert(e.message);
+}
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+
+
+// map.locate({setView: true, maxZoom: 16});
+
+function goToHospital () {
+  if (typeof path === 'undefined') {
+    path = L.Routing.control({
+      waypoints: [
+        L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
+        L.latLng(nearest[0].lat, nearest[0].lon)
+      ],
+      routeWhileDragging: true,
+      lineOptions: {
+        styles: [{ color: 'green', opacity: 1, weight: 5 }]
+      },
+      createMarker: false,
+    }).addTo(map);
+  } else if (typeof path === 'object') {
+    map.removeControl(path);
+    path = undefined
+  }
+}
+
+let goHosp = document.querySelector('.leaflet-bar-part-single');
+
+goHosp.addEventListener('click', goToHospital);

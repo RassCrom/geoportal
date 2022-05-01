@@ -5,7 +5,7 @@ var numBuffer = document.getElementById('number');
 
 const bufferFeature = () => {
     let valueBuffer = numBuffer.value;
-    let data = marker_test.toGeoJSON();
+    let data = locPoint.toGeoJSON();
     let number = document.getElementById('number');
     if (valueBuffer < 0) {
         number.style.border = '3px solid red';
