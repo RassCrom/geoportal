@@ -555,11 +555,10 @@ function goToHospital () {
         L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
         L.latLng(nearest[0].lat, nearest[0].lon)
       ],
-      routeWhileDragging: true,
       lineOptions: {
         styles: [{ color: 'green', opacity: 1, weight: 5 }]
       },
-      createMarker: false,
+      // createMarker: false,
     }).addTo(map);
   } else if (typeof path === 'object') {
     map.removeControl(path);
