@@ -38,13 +38,13 @@ var lakeStyle = {
 };
 
 function getColor(grad) {
-    return grad >= 36395100 ? '#2c7bb6' :
-            grad >= 11958300 ? '#75b1d3' :
-            grad >= 7143300 ? '#b7dee3' :
-            grad >= 4240800 ? '#e7f4cb' :
-            grad >= 2373300 ? '#fee8a4' :
-            grad >= 1062000 ? '#fdba6e' :
-            grad >= 282600 ? '#FFA500' : '#FF0000';
+    return grad >= 66.2871 ? '#2c7bb6' :
+            grad >= 35.2371 ? '#75b1d3' :
+            grad >= 22.8259 ? '#b7dee3' :
+            grad >= 13.5570 ? '#e7f4cb' :
+            grad >= 7.4623 ? '#fee8a4' :
+            grad >= 3.5450 ? '#fdba6e' :
+            grad >= 0.9805 ? '#FFA500' : '#FF0000';
 }
 
 function style(el) {
@@ -58,7 +58,35 @@ function style(el) {
   };
 }
 
-let allLakes = L.geoJSON(lakesStyledArea, {style: style});
+let allLakes = L.geoJSON(osmLakes, {style: style});
+
+var lakeStyle = {
+  "color": "#cce0fe",
+  "weight": 2,
+  "opacity": 1
+};
+
+function getColorRiver(grad) {
+    return grad >= 120387.97 ? '#2c7bb6' :
+            grad >= 62560.36 ? '#75b1d3' :
+            grad >= 37695.63 ? '#b7dee3' :
+            grad >= 25112.70 ? '#e7f4cb' :
+            grad >= 15447.16 ? '#fee8a4' :
+            grad >= 8513.47 ? '#fdba6e' :
+            grad >= 3291.30 ? '#FFA500' : '#FF0000';
+}
+
+function styleRiver(el) {
+  return {
+      fillColor: getColorRiver(el.properties.length),
+      weight: 2.5,
+      opacity: 1,
+      color: getColorRiver(el.properties.length),
+      fillOpacity: 1
+  };
+}
+
+let riverLayer = L.geoJSON(rivers, {style: styleRiver});
 // allLakes.addTo(map);
 
 // L.geoJSON(json_kaz_admbnda_adm2_2019_1).addTo(map);
@@ -228,11 +256,6 @@ var hospital = new L.geoJson(hosp, {
 },
 }).addTo(map);
 
-// L.geoJSON(hosp, {
-//   pointToLayer: function(feature,latlng){
-//     return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
-//   }
-// }).addTo(map).bindPopup(hosp.features[0].properties.type);
 // Coordinates 
 var x = document.getElementById('xcoor')
 var y = document.getElementById('ycoor')

@@ -200,15 +200,16 @@ let mL = {
 $(mL.lake[0]).on('change', function() {
     if($(this).is(':checked')) {
         mL.lake[2].addTo(map);
+        riverLayer.addTo(map);
     } else {
         map.removeLayer(allLakes);
+        map.removeLayer(riverLayer);
     } 
 })
 
 $(mL.lake[1]).on('change', function() {
     let val = $(this).val();
     let opa = val / 100;
-    // console.log(opa)
     mL.lake[2].setStyle({fillOpacity: c, opacity: opa})
 })
 
