@@ -611,11 +611,12 @@ function goToHospital () {
       //   styles: [{ color: 'green', opacity: 1, weight: 5 }]
       // },
       // // createMarker: false,
-      router: L['Routing'].osrmv1({
-        serviceUrl: `http://router.project-osrm.org/route/v1/`,
-        language: 'en',
-        profile: 'car'
-      }),
+      // router: L['Routing'].osrmv1({
+      //   serviceUrl: `http://router.project-osrm.org/route/v1/`,
+      //   language: 'en',
+      //   profile: 'car'
+      // }),
+      router: L.routing.mapbox('pk.eyJ1IjoicmFzc2Nyb20iLCJhIjoiY2wyNzlrcDY2MGk5cDNqcW5wZW9mZW5kciJ9.zdI6zJ4KbGx-V8mq1KoUCg'),
       showAlternatives: false,
       lineOptions: { styles: [{ color: '#4caf50', weight: 7 }] },
       fitSelectedRoutes: true,
