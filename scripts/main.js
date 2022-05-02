@@ -1,3 +1,22 @@
+$(document).ready(function() {
+	// Users can skip the loading process if they want.
+	$('.skip').click(function() {
+		$('.overlay, body').addClass('loaded');
+	})
+	
+	// Will wait for everything on the page to load.
+	$(window).bind('load', function() {
+		$('.overlay, body').addClass('loaded');
+		setTimeout(function() {
+			$('.overlay').css({'display':'none'})
+		}, 2000)
+	});
+	
+	// Will remove overlay after 1min for users cannnot load properly.
+	setTimeout(function() {
+		$('.overlay, body').addClass('loaded');
+	}, 60000);
+})
 var sideIcon = document.getElementById('side-icon');
     btnSideBar = document.getElementById('btn');
     leftBar = document.getElementById('left-sidebar');
@@ -242,7 +261,7 @@ $(mL.lake[0]).on('change', function() {
 $(mL.lake[1]).on('change', function() {
     let val = $(this).val();
     let opa = val / 100;
-    mL.lake[2].setStyle({fillOpacity: c, opacity: opa})
+    mL.lake[2].setStyle({fillOpacity: opa, opacity: opa})
 })
 
 $(mL.eco[0]).on('change', function() {

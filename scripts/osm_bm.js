@@ -552,6 +552,8 @@ cluster_1_4.addLayer(layer_1_4);
 bounds_group.addLayer(layer_1_4);
 // cluster_1_4.addTo(map);
 
+let imageOverlay = L.imageOverlay('D:\diplom\web\green_swir_clipped_mndwi.tif')
+
 // map.addControl(new L.Control.Search({
 //   layer: allReg,
 //   position: 'topright',
