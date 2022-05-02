@@ -17,6 +17,7 @@
       rel='stylesheet' />
 
     <!-- MAPLIBRE -->
+    <link rel="stylesheet" href="./resources/styles/accordion.css">
     <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
 
     <!-- LEAFLET -->
@@ -56,68 +57,111 @@
       </svg>
 
     <div id="left-sidebar" class="left-sidebar">
-        <h3 class="sidebar-title">Карты</h3>
-        <p class="sidebar-text">Различные карты Акмолинской области</p>
-        <button class="accordion">Города</button>
-        <div class="panel">
-            <button role="button" type="button" id="ast" class="btn btn-ast">Нур-Султан</button>
-            <button role="button" type="button" id="akk" class="btn btn-akk">Акколь</button>
-            <button role="button" type="button" id="atb" class="btn btn-atb">Атбасар</button>
-            <button role="button" type="button" id="der" class="btn btn-der">Державинск</button>
-            <button role="button" type="button" id="ere" class="btn btn-ere">Ерейментау</button>
-            <button role="button" type="button" id="esi" class="btn btn-esi">Есиль</button>
-            <button role="button" type="button" id="kok" class="btn btn-kok">Кокшетау</button>
-            <button role="button" type="button" id="mak" class="btn btn-mak">Макинск</button>
-            <button role="button" type="button" id="ste" class="btn btn-ste">Степногорск</button>
-            <button role="button" type="button" id="stp" class="btn btn-stp">Степняк</button>
-            <button role="button" type="button" id="stp" class="btn btn-stp">Степняк</button>
-            <button role="button" type="button" id="shu" class="btn btn-shu">Щучинск</button>
-        </div>
-        <button class="accordion">Озера и Реки</button>
-        <div class="panel lake">
-            <h3 class="title-layer">Озера и Реки</h3>
-            <p class="description">Показывает все водные объекты расположенные в Акмолинской области</p>
-            <div class="btn-lakes__container">
-                
-                <button id="open-stat" class="btn">Открыть статистику</button>
+        <div class="inner">
+            <h3 class="sidebar-title">Карты</h3>
+            <p class="sidebar-text">Различные карты Акмолинской области</p>
+            <div class="accordion-container">
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Города</button>
+                    </h2>
+                    <div class="ac-panel">
+                            <button role="button" type="button" id="ast" class="btn btn-ast">Нур-Султан</button>
+                            <button role="button" type="button" id="akk" class="btn btn-akk">Акколь</button>
+                            <button role="button" type="button" id="atb" class="btn btn-atb">Атбасар</button>
+                            <button role="button" type="button" id="der" class="btn btn-der">Державинск</button>
+                            <button role="button" type="button" id="ere" class="btn btn-ere">Ерейментау</button>
+                            <button role="button" type="button" id="esi" class="btn btn-esi">Есиль</button>
+                            <button role="button" type="button" id="kok" class="btn btn-kok">Кокшетау</button>
+                            <button role="button" type="button" id="mak" class="btn btn-mak">Макинск</button>
+                            <button role="button" type="button" id="ste" class="btn btn-ste">Степногорск</button>
+                            <button role="button" type="button" id="stp" class="btn btn-stp">Степняк</button>
+                            <button role="button" type="button" id="stp" class="btn btn-stp">Степняк</button>
+                            <button role="button" type="button" id="shu" class="btn btn-shu">Щучинск</button>
+                    </div>
+                </div>
+            
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Области и районы</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Граница области и районов</h3>
+                        <p class="description">Отображение векторной границы Акмолинской области соединенная с границами Нур-Султана и их районов</p>
+                        <input type="checkbox" checked name="toggle-obl" id="toggle-obl" class="toggle-button">
+                        <label for="toggle-obl" class="text">Включить / Отключить Область</label>
+                        <input id='opacity-obl' type='range'>
+                        <label for="opacity-obl" class="text">Прозрачность</label>
+                        <input type="checkbox" checked name="toggle-reg" id="toggle-reg" class="toggle-button">
+                        <label for="toggle-reg" class="text">Включить / Отключить Районы</label>
+                        <input id='opacity-reg' type='range'>
+                        <label for="opacity-reg" class="text">Прозрачность</label>
+                    </div>
+                </div>
+            
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Озера и реки</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Озера и Реки</h3>
+                        <p class="description">Показывает все водные объекты расположенные в Акмолинской области</p>
+                        <div class="btn-lakes__container">
+                            <button id="open-stat" class="btn">Открыть статистику</button>
+                        </div>
+                        <input type="checkbox"  name="toggle-lake" id="toggle-lake" class="toggle-button">
+                        <label for="toggle-lake" class="text">Включить / Отключить слой</label>
+                        <input id='opacity-lake' type='range'>
+                        <label for="opacity-lake" class="text">Прозрачность</label>
+                    </div>
+                </div>
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Экология</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Экология</h3>
+                        <p class="description">Места расположения точек сбора вторсырья, постов наблюдения за воздухом и еще</p>
+                        <input type="checkbox" name="toggle-eco" id="toggle-eco" class="toggle-button">
+                        <label for="toggle-eco" class="text">Включить / Отключить слой</label>
+                        <input id='opacity-eco' type='range'>
+                        <label for="opacity-eco" class="text">Прозрачность</label>
+                    </div>
+                </div>
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Арахниды</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Пауки и скорпионы</h3>
+                        <p class="description">Точечное представления мест расположения паукообразных в районах Акмолинской области</p>
+                        <div class="btn-lakes__container">
+                            <button id="open-list" class="btn">Список паукообразных</button>
+                            <button id="open-bite" class="btn">Укусило насекомое</button>
+                            <button id="open-hos" class="btn danger">СРОЧНО В БОЛЬНИЦУ</button>
+                        </div>
+                        <input type="checkbox" name="toggle-spi" id="toggle-spi" class="toggle-button">
+                        <label for="toggle-spi" class="text">Включить / Отключить слой</label>
+                        <!-- <input id='opacity-spi' type='range'>
+                        <label for="opacity-spi" class="text">Прозрачность</label> -->
+                    </div>
+                </div>
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Мед учреждения</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Мед учреждения</h3>
+                        <p class="description">Расположение больниц, аптек, медицинских пунктов и любых других мест, где могут оказать первую и медицинскую помощь</p>
+                        <input type="checkbox" checked name="toggle-hos" id="toggle-hos" class="toggle-button">
+                        <label for="toggle-hos" class="text">Включить / Отключить слой</label>
+                        <!-- <input id='opacity-spi' type='range'>
+                        <label for="opacity-spi" class="text">Прозрачность</label>-->
+                    </div>
+                </div>
             </div>
-            <input type="checkbox"  name="toggle-lake" id="toggle-lake" class="toggle-button">
-            <label for="toggle-lake" class="text">Включить / Отключить слой</label>
-            <input id='opacity-lake' type='range'>
-            <label for="opacity-lake" class="text">Прозрачность</label>         
+            
         </div>
-        <button class="accordion">Область и районы</button>
-        <div class="panel lake">
-            <h3 class="title-layer">Граница области и районов</h3>
-            <p class="description">Отображение векторной границы Акмолинской области соединенная с границами Нур-Султана и их районов</p>
-            <input type="checkbox" name="toggle-obl" id="toggle-obl" class="toggle-button">
-            <label for="toggle-obl" class="text">Включить / Отключить Область</label>
-            <input id='opacity-obl' type='range'>
-            <label for="opacity-obl" class="text">Прозрачность</label>
-            <input type="checkbox" name="toggle-reg" id="toggle-reg" class="toggle-button">
-            <label for="toggle-reg" class="text">Включить / Отключить Районы</label>
-            <input id='opacity-reg' type='range'>
-            <label for="opacity-reg" class="text">Прозрачность</label>          
-        </div>
-        <button class="accordion">Экология</button>
-        <div class="panel lake">
-            <h3 class="title-layer">Экология</h3>
-            <p class="description">Места расположения точек сбора вторсырья, постов наблюдения за воздухом и еще</p>
-            <input type="checkbox" name="toggle-eco" id="toggle-eco" class="toggle-button">
-            <label for="toggle-eco" class="text">Включить / Отключить слой</label>
-            <input id='opacity-eco' type='range'>
-            <label for="opacity-eco" class="text">Прозрачность</label>         
-        </div>
-        <button class="accordion">Туристические места</button>
-        <div class="panel lake">
-            <h3 class="title-layer">Турист</h3>
-            <p class="description">Места расположения красивых и живописных мест в Акмолинской области</p>
-            <input type="checkbox" name="toggle-eco" id="toggle-eco" class="toggle-button">
-            <label for="toggle-eco" class="text">Включить / Отключить слой</label>
-            <input id='opacity-eco' type='range'>
-            <label for="opacity-eco" class="text">Прозрачность</label>         
-        </div>
-        
     </div>
     <div class="chart-window">
         <canvas class="" id="chart-test"></canvas>
@@ -145,6 +189,9 @@
                 <i id="buffer" class="fas fa-circle-notch" title="Построить Буффер"></i>
             </button>
         </div>
+        <button id="btnDigitize" class="side-icon__link digitize" style="outline: none;">
+            <i id="digitize" class="fas fa-ruler-combined" title="Инструменты оцифровки"></i>
+        </button>
     </div>
     <div class="chart-lake">
         <canvas class="" id="lake-canvas"></canvas>
@@ -162,6 +209,8 @@
             <i class="fas fa-ruler"></i>
         </button>
     </div>
+    <div id="controls"><div id='mod' class="inner"></div></div>
+
     <!-- DATA  -->
     <script src="./scripts/data/lakes_styled.geojson.js"></script>
     <script src="./scripts/data/kaz_admbnda_adm2_2019_1.js"></script>
@@ -175,10 +224,13 @@
     <script src="./scripts/data/all_lakes.geojson.js"></script>
     <script src="./scripts/data/rivers.geojson.js"></script>
     <script src="./scripts/data/hosp.geojson.js"></script>
+    <script src="./scripts/data/karakurt_3.js"></script>
+    <script src="./scripts/data/tarantuls_1.js"></script>
+    <script src="./scripts/data/scorpio_2.js"></script>
     <!-- MAPLIBRE -->
     <!-- <script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="./scripts/ext/accordion.min.js"></script>
+    <script src="https://unpkg.com/accordion-js@3.3.0/dist/accordion.min.js"></script>
     <!-- OSM BUILDINGS & Leaflet -->
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="

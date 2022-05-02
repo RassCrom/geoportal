@@ -166,7 +166,7 @@ var allReg = new L.geoJson(json_kaz_admbnda_adm2_2019_1, {
   style: style_kaz_admbnda_adm2_2019_1_0,
 });
 bounds_group.addLayer(allReg);
-// map.addLayer(allReg);
+map.addLayer(allReg);
 
 function pop_kaz_admbnda_adm1_2019_2(feature, layer) {
   var popupContent = '<table>\
@@ -226,7 +226,7 @@ var allObl = new L.geoJson(json_kaz_admbnda_adm1_2019_2, {
   style: style_kaz_admbnda_adm1_2019_2_0,
 });
 bounds_group.addLayer(allObl);
-// map.addLayer(allObl);
+map.addLayer(allObl);
 setBounds();
 
 function hospStyle(feature, layer) {
@@ -255,6 +255,33 @@ var hospital = new L.geoJson(hosp, {
     return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
 },
 }).addTo(map);
+
+var greenIcon = L.icon({
+  iconUrl: 'https://cdn.pixabay.com/photo/2020/12/02/07/58/tarantula-5796573_960_720.png',
+
+  iconSize:     [26, 26], // size of the icon
+  iconAnchor:   [8, 25], // point of the icon which will correspond to marker's location
+  popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+});
+// let spider = L.marker([51.769, 70.334], {icon: greenIcon}).addTo(map);
+
+let tarantul = L.geoJSON(json_tarantuls_1, {
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng,{icon: greenIcon });
+  },
+});
+
+let scorpioIcon = L.icon({
+  iconUrl: 'https://cdn-icons-png.flaticon.com/512/47/47325.png',
+  iconSize: [26,26],
+  iconAnchor: [8,25]
+})
+
+let scorpio = L.geoJSON(json_scorpio_2, {
+  pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {icon: scorpioIcon})
+  }
+});
 
 // Coordinates 
 var x = document.getElementById('xcoor')
@@ -523,7 +550,7 @@ var cluster_1_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
 cluster_1_4.addLayer(layer_1_4);
 
 bounds_group.addLayer(layer_1_4);
-cluster_1_4.addTo(map);
+// cluster_1_4.addTo(map);
 
 // map.addControl(new L.Control.Search({
 //   layer: allReg,
@@ -558,37 +585,61 @@ function onLocationFound(e) {
   locPoint = L.marker(e.latlng).addTo(map)
       .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-  L.circle(e.latlng, radius).addTo(map);
+  let userCircle = L.circle(e.latlng, radius).addTo(map);
   nearest = leafletKnn(hospital).nearest(L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),1);
 }
 
 function onLocationError(e) {
   alert(e.message);
 }
+
 map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 
-
-// map.locate({setView: true, maxZoom: 16});
+map.locate({setView: true, maxZoom: 16});
 
 function goToHospital () {
+
   if (typeof path === 'undefined') {
     path = L.Routing.control({
+      // waypoints: [
+      //   L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
+      //   L.latLng(nearest[0].lat, nearest[0].lon)
+      // ],
+      // position: 'topright',
+      // lineOptions: {
+      //   styles: [{ color: 'green', opacity: 1, weight: 5 }]
+      // },
+      // // createMarker: false,
+      router: L['Routing'].osrmv1({
+        serviceUrl: `http://router.project-osrm.org/route/v1/`,
+        language: 'en',
+        profile: 'car'
+      }),
+      showAlternatives: false,
+      lineOptions: { styles: [{ color: '#4caf50', weight: 7 }] },
+      fitSelectedRoutes: true,
+      altLineOptions: { styles: [{ color: '#ed6852', weight: 7 }] },
+      // show: false,
+      routeWhileDragging: true,
+      addWaypoints: false,
       waypoints: [
         L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
         L.latLng(nearest[0].lat, nearest[0].lon)
       ],
-      lineOptions: {
-        styles: [{ color: 'green', opacity: 1, weight: 5 }]
-      },
-      // createMarker: false,
     }).addTo(map);
+    var routeBlock = path.onAdd(map);
+    document.getElementById('mod').appendChild(routeBlock);	
   } else if (typeof path === 'object') {
     map.removeControl(path);
     path = undefined
-  }
-}
+    map.removeLayer(locPoint);
+    map.removeLayer(userCircle);
+  };
+  animateSideBar();
+};
 
 let goHosp = document.querySelector('.leaflet-bar-part-single');
+let wayHosp = document.getElementById('open-hos');
 
-goHosp.addEventListener('click', goToHospital);
+wayHosp.addEventListener('click', goToHospital);

@@ -175,7 +175,13 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 };
-
+new Accordion('.accordion-container', {
+    duration: 400,
+    showMultiple: true,
+    onOpen: function(currentElement) {
+        console.log(currentElement);
+    }
+});
 
 // Custom control 
 let mL = {
@@ -183,6 +189,8 @@ let mL = {
     _lake: ['#toggle-lake', '#opacity-lake', allLakes],
     _obl: ['#toggle-obl', '#opacity-obl', allObl],
     _reg: ['#toggle-reg', '#opacity-reg', allReg],
+    _spi: ['#toggle-spi', "#opacity-spi", tarantul, scorpio],
+    _hos: ['#toggle-hos', "#opacity-hos", hospital],
     get eco() {
         return this._eco;
     },
@@ -195,7 +203,31 @@ let mL = {
     get reg() {
         return this._reg;
     },
+    get spi() {
+        return this._spi;
+    },
+    get hos() {
+        return this._hos;
+    }
 }
+
+$(mL.hos[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.hos[2].addTo(map);
+    } else {
+        map.removeLayer(mL.hos[2]);
+    }
+})
+
+$(mL.spi[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.spi[2].addTo(map);
+        mL.spi[3].addTo(map);
+    } else {
+        map.removeLayer(mL.spi[2]);
+        map.removeLayer(mL.spi[3]);
+    }
+})
 
 $(mL.lake[0]).on('change', function() {
     if($(this).is(':checked')) {
@@ -263,5 +295,20 @@ $(mL.reg[1]).on('change', function() {
     mL.reg[2].setStyle({fillOpacity: opa, opacity: opa})
 })
 
+// HIDE SHOW DIGITIZE BAR 
+let digitize = document.getElementById('btnDigitize');
 
+const showDigitizing = () => {
+    let leafRight = document.querySelectorAll('.leaflet-right');
+    if (leafRight[0].style.visibility === 'hidden') {
+        leafRight[0].style.visibility = 'visible';
+        leafRight[1].style.visibility = 'visible';
+        digitize.style.transform = 'translateY(436px)';
+    } else {
+        leafRight[0].style.visibility = 'hidden';
+        leafRight[1].style.visibility = 'hidden';
+        digitize.style.transform = 'translateY(0)';
+    }
+};
 
+digitize.addEventListener('click', showDigitizing)
