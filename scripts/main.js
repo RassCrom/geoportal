@@ -180,26 +180,12 @@ home.addEventListener('click', flyToHome)
 
 
 // ACCORDION
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active-map");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-        panel.style.maxHeight = panel.scrollHeight + 120 + "px";
-    }
-  });
-};
 new Accordion('.accordion-container', {
     duration: 400,
     showMultiple: true,
-    onOpen: function(currentElement) {
-        console.log(currentElement);
-    }
+    // onOpen: function(currentElement) {
+    //     console.log(currentElement);
+    // }
 });
 
 // Custom control 
@@ -316,18 +302,23 @@ $(mL.reg[1]).on('change', function() {
 
 // HIDE SHOW DIGITIZE BAR 
 let digitize = document.getElementById('btnDigitize');
+let leafRight = document.querySelectorAll('.leaflet-right');
+leafRight[0].style.display = 'none';
+leafRight[0].style.opacity = '0';
 
 const showDigitizing = () => {
-    let leafRight = document.querySelectorAll('.leaflet-right');
-    if (leafRight[0].style.visibility === 'hidden') {
-        leafRight[0].style.visibility = 'visible';
-        leafRight[1].style.visibility = 'visible';
+    if (leafRight[0].style.opacity === '0') {
+        leafRight[0].style.display = 'block';
+        leafRight[0].style.opacity = '1';
+        console.log(0)
         digitize.style.transform = 'translateY(436px)';
     } else {
-        leafRight[0].style.visibility = 'hidden';
-        leafRight[1].style.visibility = 'hidden';
+        console.log(1)
+        leafRight[0].style.display = 'none';
+        leafRight[0].style.opacity = '0';
         digitize.style.transform = 'translateY(0)';
     }
 };
 
 digitize.addEventListener('click', showDigitizing)
+

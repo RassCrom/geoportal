@@ -113,7 +113,8 @@ body {
 	 position: absolute;
 	 width: 50%;
 	 height: 100%;
-	 background: #111;
+	 background: darkblue;
+     background-size: cover;
 	 transition: 0.5s cubic-bezier(0.77, 0, 0.18, 1);
 	 transition-delay: 0.8s;
 }
@@ -664,8 +665,7 @@ input[type='range'] {
 
 /* DIGITIZING */
 .leaflet-right {
-    visibility: hidden;
-    transition: all .5s linear;
+    transition: opacity .5s linear;
 }
 
 .digitize {
@@ -674,7 +674,6 @@ input[type='range'] {
     right: -1495px;
     transition: .0s;
 }
-
 
 #controls {
     background: url('https://img.freepik.com/free-vector/cartoon-galaxy-background-with-planets_23-2148966504.jpg?t=st=1651486483~exp=1651487083~hmac=e2caef846bf02901853d639d93fcf63a8c9cdc8c98491066ca66cab31717a024&w=996') center no-repeat;
@@ -693,6 +692,7 @@ input[type='range'] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    display: none;
 }
 
 #controls::after {
@@ -719,6 +719,13 @@ input[type='range'] {
     background-color: #070f8282;
 }
 
-.leaflet-routing-container {
-    display: none;
+#closeRoute {
+    align-self: flex-end;
+    margin-right: 5px;
+    color: white;
+    font-weight: 800;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
 }
+

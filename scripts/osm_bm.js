@@ -552,8 +552,6 @@ cluster_1_4.addLayer(layer_1_4);
 bounds_group.addLayer(layer_1_4);
 // cluster_1_4.addTo(map);
 
-let imageOverlay = L.imageOverlay('D:\diplom\web\green_swir_clipped_mndwi.tif')
-
 // map.addControl(new L.Control.Search({
 //   layer: allReg,
 //   position: 'topright',
@@ -581,13 +579,17 @@ let imageOverlay = L.imageOverlay('D:\diplom\web\green_swir_clipped_mndwi.tif')
 let locPoint;
 let nearest;
 let path;
+let closeRoute = document.getElementById('closeRoute');
+let controls = document.getElementById('controls');
+let userCircle;
+
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
 
   locPoint = L.marker(e.latlng).addTo(map)
       .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-  let userCircle = L.circle(e.latlng, radius).addTo(map);
+  userCircle = L.circle(e.latlng, radius).addTo(map);
   nearest = leafletKnn(hospital).nearest(L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),1);
 }
 
@@ -601,6 +603,7 @@ map.on('locationerror', onLocationError);
 map.locate({setView: true, maxZoom: 16});
 
 function goToHospital () {
+  controls.style.display = 'flex';
 
   if (typeof path === 'undefined') {
     path = L.Routing.control({
@@ -612,7 +615,7 @@ function goToHospital () {
       // lineOptions: {
       //   styles: [{ color: 'green', opacity: 1, weight: 5 }]
       // },
-      // // createMarker: false,
+      // createMarker: false,
       // router: L['Routing'].osrmv1({
       //   serviceUrl: `http://router.project-osrm.org/route/v1/`,
       //   language: 'en',
@@ -624,12 +627,14 @@ function goToHospital () {
       fitSelectedRoutes: true,
       altLineOptions: { styles: [{ color: '#ed6852', weight: 7 }] },
       // show: false,
+      collapsible: false,
       routeWhileDragging: true,
       addWaypoints: false,
       waypoints: [
         L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
         L.latLng(nearest[0].lat, nearest[0].lon)
       ],
+      reverseWaypoints: true,
     }).addTo(map);
     var routeBlock = path.onAdd(map);
     document.getElementById('mod').appendChild(routeBlock);	
@@ -639,6 +644,8 @@ function goToHospital () {
     map.removeLayer(locPoint);
     map.removeLayer(userCircle);
   };
+  let routeBug = document.querySelector('.leaflet-routing-container');
+  routeBug.style.display = 'none';
   animateSideBar();
 };
 
@@ -646,3 +653,14 @@ let goHosp = document.querySelector('.leaflet-bar-part-single');
 let wayHosp = document.getElementById('open-hos');
 
 wayHosp.addEventListener('click', goToHospital);
+
+// ROUTE CLOSER
+function closeRouteContainer() {
+    controls.style.display = 'none';
+    map.removeControl(path);
+    path = undefined;
+    map.removeLayer(locPoint);
+    map.removeLayer(userCircle);
+}
+
+closeRoute.addEventListener('click', closeRouteContainer)
