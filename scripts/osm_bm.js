@@ -1,8 +1,8 @@
 let map = L.map('map', {
 	center: [51.769, 70.334],
 	zoom: 7,
-  minZoom: 3,
-  maxZoom: 20,
+  minZoom: 7,
+  maxZoom: 22,
 });
 
 let hash = new L.Hash(map);
@@ -244,17 +244,17 @@ function hospStyle(feature, layer) {
   layer.bindPopup(popupContent2, {maxHeight: 400});
 }
 
-var hospital = new L.geoJson(hosp, {
-  attribution: '',
-  interactive: true,
-  dataVar: 'json_hosp',
-  layerName: 'Hospitals',
-  pane: 'Hospitals',
-  onEachFeature: hospStyle,
-  pointToLayer: function (feature, latlng) {
-    return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
-},
-}).addTo(map);
+// var hospital = new L.geoJson(hosp, {
+//   attribution: '',
+//   interactive: true,
+//   dataVar: 'json_hosp',
+//   layerName: 'Hospitals',
+//   pane: 'Hospitals',
+//   onEachFeature: hospStyle,
+//   pointToLayer: function (feature, latlng) {
+//     return L.marker(latlng,{icon: L.AwesomeMarkers.icon({icon: 'medkit', prefix: 'fa', markerColor: 'darkblue'}) });
+// },
+// }).addTo(map);
 
 var greenIcon = L.icon({
   iconUrl: 'https://cdn.pixabay.com/photo/2020/12/02/07/58/tarantula-5796573_960_720.png',
@@ -282,6 +282,107 @@ let scorpio = L.geoJSON(json_scorpio_2, {
     return L.marker(latlng, {icon: scorpioIcon})
   }
 });
+
+function pop_fishing_1(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2"><strong>Рыбы</strong><br />' + (feature.properties['Рыбы'] !== null ? autolinker.link(feature.properties['Рыбы'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style_fishing_1_0() {
+  return {
+      pane: 'pane_fishing_1',
+      rotationAngle: 0.0,
+      rotationOrigin: 'center center',
+      icon: L.icon({
+        iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Fish_icon.svg/1200px-Fish_icon.svg.png',
+        iconSize: [23.560000000000013, 23.560000000000013]
+      }),
+      interactive: true,
+  }
+}
+map.createPane('pane_fishing_1');
+map.getPane('pane_fishing_1').style.zIndex = 401;
+map.getPane('pane_fishing_1').style['mix-blend-mode'] = 'normal';
+var layer_fishing_1 = new L.geoJson(json_fishing_1, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json_fishing_1',
+  layerName: 'layer_fishing_1',
+  pane: 'pane_fishing_1',
+  onEachFeature: pop_fishing_1,
+  pointToLayer: function (feature, latlng) {
+      var context = {
+          feature: feature,
+          variables: {}
+      };
+      return L.marker(latlng, style_fishing_1_0(feature));
+  },
+});
+var cluster_fishing_1 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+  spiderfyDistanceMultiplier: 2});
+cluster_fishing_1.addLayer(layer_fishing_1);
+
+bounds_group.addLayer(layer_fishing_1);
+cluster_fishing_1.addTo(map);
+setBounds();
+map.addControl(new L.Control.Search({
+  layer: cluster_fishing_1,
+  initial: false,
+  hideMarkerOnCollapse: true,
+  propertyName: 'Рыбы'}));
+document.getElementsByClassName('search-button')[0].className +=
+' fa fa-binoculars';
+
+function pop__1(feature, layer) {
+  var popupContent = '<table>\
+          <tr>\
+              <td colspan="2">' + (feature.properties['Название'] !== null ? autolinker.link(feature.properties['Название'].toLocaleString()) : '') + '</td>\
+          </tr>\
+      </table>';
+  layer.bindPopup(popupContent, {maxHeight: 400});
+}
+
+function style__1_0() {
+  return {
+      pane: 'pane__1',
+rotationAngle: 0.0,
+rotationOrigin: 'center center',
+icon: L.icon({
+  iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Icons8_flat_shop.svg/1200px-Icons8_flat_shop.svg.png',
+  iconSize: [20.9, 20.9]
+}),
+      interactive: true,
+  }
+}
+map.createPane('pane__1');
+map.getPane('pane__1').style.zIndex = 401;
+map.getPane('pane__1').style['mix-blend-mode'] = 'normal';
+var layer__1 = new L.geoJson(json__1, {
+  attribution: '',
+  interactive: true,
+  dataVar: 'json__1',
+  layerName: 'layer__1',
+  pane: 'pane__1',
+  onEachFeature: pop__1,
+  pointToLayer: function (feature, latlng) {
+      var context = {
+          feature: feature,
+          variables: {}
+      };
+      return L.marker(latlng, style__1_0(feature));
+  },
+});
+var cluster__1 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+  spiderfyDistanceMultiplier: 2});
+cluster__1.addLayer(layer__1);
+
+bounds_group.addLayer(layer__1);
+cluster__1.addTo(map);
+setBounds();
 
 // Coordinates 
 var x = document.getElementById('xcoor')
@@ -561,20 +662,6 @@ bounds_group.addLayer(layer_1_4);
 // document.getElementsByClassName('search-button')[0].className +=
 // ' fa fa-binoculars';
 
-// let testc = L.marker([51.769, 70.334]).addTo(map);
-// testc.addEventListener('click', function(event) {
-//   map.flyTo([event.latlng.lat, event.latlng.lng], 13)
-// })
-
-// var polygon = L.polygon([
-//   [51.509, -0.08],
-//   [51.503, -0.06],
-//   [51.51, -0.047]
-// ]).addTo(map);
-// polygon.on("click", function (event) {
-//   map.fitBounds(event.target._bounds);
-// });
-
 // Routing
 let locPoint;
 let nearest;
@@ -590,7 +677,7 @@ function onLocationFound(e) {
       .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
   userCircle = L.circle(e.latlng, radius).addTo(map);
-  nearest = leafletKnn(hospital).nearest(L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),1);
+  nearest = leafletKnn(layer_fishing_1).nearest(L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),1);
 }
 
 function onLocationError(e) {
@@ -607,20 +694,6 @@ function goToHospital () {
 
   if (typeof path === 'undefined') {
     path = L.Routing.control({
-      // waypoints: [
-      //   L.latLng(locPoint._latlng.lat, locPoint._latlng.lng),
-      //   L.latLng(nearest[0].lat, nearest[0].lon)
-      // ],
-      // position: 'topright',
-      // lineOptions: {
-      //   styles: [{ color: 'green', opacity: 1, weight: 5 }]
-      // },
-      // createMarker: false,
-      // router: L['Routing'].osrmv1({
-      //   serviceUrl: `http://router.project-osrm.org/route/v1/`,
-      //   language: 'en',
-      //   profile: 'car'
-      // }),
       router: L.routing.mapbox('pk.eyJ1IjoicmFzc2Nyb20iLCJhIjoiY2wyNzlrcDY2MGk5cDNqcW5wZW9mZW5kciJ9.zdI6zJ4KbGx-V8mq1KoUCg'),
       showAlternatives: false,
       lineOptions: { styles: [{ color: '#4caf50', weight: 7 }] },
@@ -650,9 +723,9 @@ function goToHospital () {
 };
 
 let goHosp = document.querySelector('.leaflet-bar-part-single');
-let wayHosp = document.getElementById('open-hos');
+// let wayHosp = document.getElementById('open-hos');
 
-wayHosp.addEventListener('click', goToHospital);
+// wayHosp.addEventListener('click', goToHospital);
 
 // ROUTE CLOSER
 function closeRouteContainer() {

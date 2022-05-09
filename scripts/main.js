@@ -165,7 +165,7 @@ const rndmFly = () => {
 }
 
 
-rndm.addEventListener('click', rndmFly)
+// rndm.addEventListener('click', rndmFly)
 
 // FLY TO HOME POSITION 
 const flyToHome = () => {
@@ -195,7 +195,9 @@ let mL = {
     _obl: ['#toggle-obl', '#opacity-obl', allObl],
     _reg: ['#toggle-reg', '#opacity-reg', allReg],
     _spi: ['#toggle-spi', "#opacity-spi", tarantul, scorpio],
-    _hos: ['#toggle-hos', "#opacity-hos", hospital],
+    _hos: ['#toggle-hos', "#opacity-hos", 'hospital'],
+    _fishing: ['#toggle-fishing', '#opacity-fishing', cluster_fishing_1],
+    _shopfish: ['#toggle-shopfish', '#opacity-shopfish', layer__1],
     get eco() {
         return this._eco;
     },
@@ -213,8 +215,30 @@ let mL = {
     },
     get hos() {
         return this._hos;
+    },
+    get fishing() {
+        return this._fishing;
+    },
+    get shopfish() {
+        return this._shopfish;
     }
 }
+
+$(mL.shopfish[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.shopfish[2].addTo(map);
+    } else {
+        map.removeLayer(mL.shopfish[2]);
+    }
+})
+
+$(mL.fishing[0]).on('change', function() {
+    if($(this).is(':checked')) {
+        mL.fishing[2].addTo(map);
+    } else {
+        map.removeLayer(mL.fishing[2]);
+    }
+})
 
 $(mL.hos[0]).on('change', function() {
     if($(this).is(':checked')) {

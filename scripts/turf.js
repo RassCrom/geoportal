@@ -17,12 +17,12 @@ const bufferFeature = () => {
     number.style.border = '0px';
 }
 
-buffer.addEventListener('click', function() {
-    if (bufferSettings.style.display === 'none') {
-        bufferSettings.style.display = 'flex';
-    } else {
-        bufferSettings.style.display = 'none';
-    }
-})
+// buffer.addEventListener('click', function() {
+//     if (bufferSettings.style.display === 'none') {
+//         bufferSettings.style.display = 'flex';
+//     } else {
+//         bufferSettings.style.display = 'none';
+//     }
+// })
 
-confirmBuffer.addEventListener('click', bufferFeature)
+// confirmBuffer.addEventListener('click', bufferFeature)

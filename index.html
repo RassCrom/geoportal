@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Geoportal of Akmola region">
+    <meta name="keywords" content="Geoportal, Cartography, Water, GIS">
+    <meta name="author" content="Alikhan Beisenbayev">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
@@ -18,7 +21,7 @@
 
     <!-- MAPLIBRE -->
     <link rel="stylesheet" href="./resources/styles/accordion.css">
-    <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
+    <!-- <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" /> -->
 
     <!-- LEAFLET -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -127,10 +130,10 @@
                 </div>
                 <div class="ac">
                     <h2 class="ac-header">
-                        <button type="button" class="ac-trigger">Экология</button>
+                        <button type="button" class="ac-trigger">Экологические точки</button>
                     </h2>
                     <div class="ac-panel lake">
-                        <h3 class="title-layer">Экология</h3>
+                        <h3 class="title-layer">Экологические точки</h3>
                         <p class="description">Места расположения точек сбора вторсырья, постов наблюдения за воздухом и еще</p>
                         <input type="checkbox" name="toggle-eco" id="toggle-eco" class="toggle-button">
                         <label for="toggle-eco" class="text">Включить / Отключить слой</label>
@@ -139,6 +142,28 @@
                     </div>
                 </div>
                 <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Магазины рыбалки</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Рыболовные магазины</h3>
+                        <p class="description">Места расположения точек сбора вторсырья, постов наблюдения за воздухом и еще</p>
+                        <input type="checkbox" checked name="toggle-shopfish" id="toggle-shopfish" class="toggle-button">
+                        <label for="toggle-shopfish" class="text">Включить / Отключить слой</label>
+                    </div>
+                </div>
+                <div class="ac">
+                    <h2 class="ac-header">
+                        <button type="button" class="ac-trigger">Места рыбалки</button>
+                    </h2>
+                    <div class="ac-panel lake">
+                        <h3 class="title-layer">Места рыбалки</h3>
+                        <p class="description">Места рыбалки</p>
+                        <input type="checkbox" name="toggle-fishing" checked id="toggle-fishing" class="toggle-button">
+                        <label for="toggle-fishing" class="text">Включить / Отключить слой</label>
+                    </div>
+                </div>
+                <!-- <div class="ac">
                     <h2 class="ac-header">
                         <button type="button" class="ac-trigger">Арахниды</button>
                     </h2>
@@ -152,8 +177,6 @@
                         </div>
                         <input type="checkbox" name="toggle-spi" id="toggle-spi" class="toggle-button">
                         <label for="toggle-spi" class="text">Включить / Отключить слой</label>
-                        <!-- <input id='opacity-spi' type='range'>
-                        <label for="opacity-spi" class="text">Прозрачность</label> -->
                     </div>
                 </div>
                 <div class="ac">
@@ -165,10 +188,8 @@
                         <p class="description">Расположение больниц, аптек, медицинских пунктов и любых других мест, где могут оказать первую и медицинскую помощь</p>
                         <input type="checkbox" checked name="toggle-hos" id="toggle-hos" class="toggle-button">
                         <label for="toggle-hos" class="text">Включить / Отключить слой</label>
-                        <!-- <input id='opacity-spi' type='range'>
-                        <label for="opacity-spi" class="text">Прозрачность</label>-->
                     </div>
-                </div>
+                </div> -->
             </div>
             
         </div>
@@ -192,12 +213,17 @@
             <button id="btn-fullscreen" class="side-icon__link" title="Открыть на весь экран">
                 <i id="full" class="fas fa-expand"></i>
             </button>
-            <button id="btn-random" class="side-icon__link" title="Переместиться в случайный город">
+            <button id="" class="side-icon__link" title="dashboards">
+                <a style="color: black;" target="_blank" href="https://www.arcgis.com/apps/dashboards/65d736f791384311ad14dbc72fab456b">
+                    <i id="" class="fas fa-database"></i>
+                </a>
+            </button>
+            <!-- <button id="btn-random" class="side-icon__link" title="Переместиться в случайный город">
                 <i id="random" class="fas fa-question"></i>
             </button>
             <button id="btnBuffer" class="side-icon__link">
                 <i id="buffer" class="fas fa-circle-notch" title="Построить Буффер"></i>
-            </button>
+            </button> -->
         </div>
         <button id="btnDigitize" class="side-icon__link digitize" style="outline: none;">
             <i id="digitize" class="fas fa-ruler-combined" title="Инструменты оцифровки"></i>
@@ -236,6 +262,8 @@
     <script src="./scripts/data/karakurt_3.js"></script>
     <script src="./scripts/data/tarantuls_1.js"></script>
     <script src="./scripts/data/scorpio_2.js"></script>
+    <script src="./scripts/data/fishing_1.js"></script>
+    <script src="./scripts/data/_1.js"></script>
     <!-- MAPLIBRE -->
     <script src="./scripts/ext/Autolinker.min.js"></script>
     <!-- <script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script> -->
