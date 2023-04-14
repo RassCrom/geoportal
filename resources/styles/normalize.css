@@ -204,10 +204,7 @@ body {
 /* Lefside panel */
 
 .left-sidebar {
-    /* background-color: rgb(8, 101, 135); */
-    background: url('https://img.freepik.com/free-vector/cartoon-galaxy-background-with-planets_23-2148966504.jpg?t=st=1651486483~exp=1651487083~hmac=e2caef846bf02901853d639d93fcf63a8c9cdc8c98491066ca66cab31717a024&w=996') center no-repeat;
-    -webkit-background-size: cover;
-    background-size: cover;
+    background-color: rgb(8, 101, 135);
     box-shadow: 0 0 12px black;
     width: 350px;
     height: 90%;
